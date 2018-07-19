@@ -1,8 +1,0 @@
-ros-kinetic-prbt-ikfast-manipulator-plugin (0.2.0-0xenial) xenial; urgency=high
-
-  * generate IKfast solver and plugin
-  * Contributors: Alexander Gutenkunst, Fahri Demirci, Hagen Slusarek, Immanuel Martini, Joachim Schleicher, Kai Hu
-
- -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 11 Jul 2018 22:00:00 -0000
-
-
