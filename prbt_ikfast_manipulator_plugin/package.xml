@@ -1,6 +1,6 @@
 <package>
   <name>prbt_ikfast_manipulator_plugin</name>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
   <description>The prbt_ikfast_manipulator_plugin package</description>
 
   <maintainer email="ros@pilz.de">Pilz GmbH and Co. KG</maintainer>
@@ -8,6 +8,10 @@
   <license>Apache 2.0</license>
 
   <buildtool_depend>catkin</buildtool_depend>
+
+  <url type="website">https://wiki.ros.org/prbt_ikfast_manipulator_plugin</url>
+  <url type="bugtracker">https://github.com/PilzDE/pilz_robots/issues</url>
+  <url type="repository">https://github.com/PilzDE/pilz_robots</url>
 
   <export>
     <moveit_core plugin="${prefix}/prbt_manipulator_moveit_ikfast_plugin_description.xml"/>
