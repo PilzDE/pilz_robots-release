@@ -1,0 +1,20 @@
+ros-melodic-prbt-ikfast-manipulator-plugin (0.3.0-0artful) artful; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 14 Aug 2018 22:00:00 -0000
+
+ros-melodic-prbt-ikfast-manipulator-plugin (0.2.1-0artful) artful; urgency=high
+
+  * Add <url> tag to all package.xml files
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 18 Jul 2018 22:00:00 -0000
+
+ros-melodic-prbt-ikfast-manipulator-plugin (0.2.0-0artful) artful; urgency=high
+
+  * generate IKfast solver and plugin
+  * Contributors: Alexander Gutenkunst, Fahri Demirci, Hagen Slusarek, Immanuel Martini, Joachim Schleicher, Kai Hu
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 11 Jul 2018 22:00:00 -0000
+
+
