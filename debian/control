@@ -1,0 +1,12 @@
+Source: ros-kinetic-prbt-hardware-support
+Section: misc
+Priority: extra
+Maintainer: Pilz GmbH and Co. KG <ros@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), libmodbus-dev, ros-kinetic-catkin, ros-kinetic-cmake-modules, ros-kinetic-code-coverage, ros-kinetic-message-filters, ros-kinetic-message-generation, ros-kinetic-roscpp, ros-kinetic-rostest, ros-kinetic-rosunit, ros-kinetic-std-msgs
+Homepage: https://wiki.ros.org/prbt_hardware_support
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-prbt-hardware-support
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-message-runtime, ros-kinetic-roscpp, ros-kinetic-std-msgs
+Description: Control hardware functions of the PRBT manipulator like STO for Stop1 functionality.
