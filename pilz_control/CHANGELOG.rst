@@ -2,8 +2,10 @@
 Changelog for package pilz_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.4.1 (2018-11-07)
+0.5.0 (2018-11-07)
 ------------------
+* fix joint trajectory controller due to new interface
+* Contributors: Pilz GmbH and Co. KG
 
 0.4.0 (2018-11-06)
 ------------------
