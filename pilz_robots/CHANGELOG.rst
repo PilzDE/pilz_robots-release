@@ -2,6 +2,12 @@
 Changelog for package pilz_robots
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.0 (2018-11-07)
+------------------
+
+0.4.0 (2018-11-06)
+------------------
+
 0.3.0 (2018-08-15)
 ------------------
 * separate gripper from the package (update readme, next release to melodic as well)
