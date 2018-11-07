@@ -2,6 +2,9 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.1 (2018-11-07)
+------------------
+
 0.4.0 (2018-11-06)
 ------------------
 * Enable prbt model to be used in combination with Gazebo
