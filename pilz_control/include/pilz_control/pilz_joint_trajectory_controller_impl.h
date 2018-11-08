@@ -26,7 +26,7 @@ template <class SegmentImpl, class HardwareInterface>
 PilzJointTrajectoryController<SegmentImpl, HardwareInterface>::
 PilzJointTrajectoryController()
   : active_update_strategy_(
-      std::bind(&PilzJointTrajectoryController::updateStrategyWhileHolding, this, ph::_1, ph::_2, ph::_3)
+      std::bind(&PilzJointTrajectoryController::updateStrategyWhileHolding, this, ph::_1, ph::_2)
     )
 {
 }
@@ -60,8 +60,7 @@ handleHoldRequest(std_srvs::TriggerRequest&, std_srvs::TriggerResponse& response
   JointTrajectoryController::preemptActiveGoal();
   triggerMovementToHoldPosition();
 
-  active_update_strategy_ = std::bind(&PilzJointTrajectoryController::updateStrategyWhileHolding, this,
-                                      ph::_1, ph::_2, ph::_3);
+  active_update_strategy_ = std::bind(&PilzJointTrajectoryController::updateStrategyWhileHolding, this, ph::_1, ph::_2);
 
   response.message = "Holding mode enabled";
   response.success = true;
@@ -73,8 +72,7 @@ bool PilzJointTrajectoryController<SegmentImpl, HardwareInterface>::
 handleUnHoldRequest(std_srvs::TriggerRequest&, std_srvs::TriggerResponse& response)
 {
   std::lock_guard<std::mutex> lock(sync_mutex_);
-  active_update_strategy_ = std::bind(&PilzJointTrajectoryController::updateStrategyDefault, this,
-                                      ph::_1, ph::_2, ph::_3);
+  active_update_strategy_ = std::bind(&PilzJointTrajectoryController::updateStrategyDefault, this, ph::_1, ph::_2);
 
   response.message = "Default mode enabled";
   response.success = true;
@@ -83,22 +81,22 @@ handleUnHoldRequest(std_srvs::TriggerRequest&, std_srvs::TriggerResponse& respon
 
 template <class SegmentImpl, class HardwareInterface>
 bool PilzJointTrajectoryController<SegmentImpl, HardwareInterface>::
-updateTrajectoryCommand(const JointTrajectoryConstPtr& msg, RealtimeGoalHandlePtr gh, std::string* error_string)
+updateTrajectoryCommand(const JointTrajectoryConstPtr& msg, RealtimeGoalHandlePtr gh)
 {
   std::lock_guard<std::mutex> lock(sync_mutex_);
-  return active_update_strategy_(msg, gh, error_string);
+  return active_update_strategy_(msg, gh);
 }
 
 template <class SegmentImpl, class HardwareInterface>
 bool PilzJointTrajectoryController<SegmentImpl, HardwareInterface>::
-updateStrategyDefault(const JointTrajectoryConstPtr& msg, RealtimeGoalHandlePtr gh, std::string* error_string)
+updateStrategyDefault(const JointTrajectoryConstPtr& msg, RealtimeGoalHandlePtr gh)
 {
-  return JointTrajectoryController::updateTrajectoryCommand(msg, gh, error_string);
+  return JointTrajectoryController::updateTrajectoryCommand(msg, gh);
 }
 
 template <class SegmentImpl, class HardwareInterface>
 bool PilzJointTrajectoryController<SegmentImpl, HardwareInterface>::
-updateStrategyWhileHolding(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr, std::string* error_string)
+updateStrategyWhileHolding(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr)
 {
   ROS_INFO_THROTTLE_NAMED(10, this->name_, "Can't accept new commands. Controller is holding.");
   return false;
