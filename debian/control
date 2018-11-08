@@ -1,0 +1,12 @@
+Source: ros-melodic-prbt-ikfast-manipulator-plugin
+Section: misc
+Priority: extra
+Maintainer: Pilz GmbH and Co. KG <ros@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), liblapack-dev, ros-melodic-catkin, ros-melodic-code-coverage, ros-melodic-moveit-core, ros-melodic-pluginlib, ros-melodic-roscpp, ros-melodic-rostest, ros-melodic-rosunit, ros-melodic-tf-conversions
+Homepage: https://wiki.ros.org/prbt_ikfast_manipulator_plugin
+Standards-Version: 3.9.2
+
+Package: ros-melodic-prbt-ikfast-manipulator-plugin
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, liblapack-dev, ros-melodic-moveit-core, ros-melodic-pluginlib, ros-melodic-roscpp, ros-melodic-tf-conversions
+Description: The prbt_ikfast_manipulator_plugin package
