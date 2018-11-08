@@ -1,0 +1,39 @@
+ros-kinetic-prbt-ikfast-manipulator-plugin (0.4.2-0xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 07 Nov 2018 23:00:00 -0000
+
+ros-kinetic-prbt-ikfast-manipulator-plugin (0.4.1-0xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 06 Nov 2018 23:00:00 -0000
+
+ros-kinetic-prbt-ikfast-manipulator-plugin (0.4.0-0xenial) xenial; urgency=high
+
+  * add code coverage make target
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Mon, 05 Nov 2018 23:00:00 -0000
+
+ros-kinetic-prbt-ikfast-manipulator-plugin (0.3.0-0xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 14 Aug 2018 22:00:00 -0000
+
+ros-kinetic-prbt-ikfast-manipulator-plugin (0.2.1-0xenial) xenial; urgency=high
+
+  * Add <url> tag to all package.xml files
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 18 Jul 2018 22:00:00 -0000
+
+ros-kinetic-prbt-ikfast-manipulator-plugin (0.2.0-0xenial) xenial; urgency=high
+
+  * generate IKfast solver and plugin
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 11 Jul 2018 22:00:00 -0000
+
+
