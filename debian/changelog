@@ -1,0 +1,19 @@
+ros-kinetic-pilz-control (0.4.2-0xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 07 Nov 2018 23:00:00 -0000
+
+ros-kinetic-pilz-control (0.4.1-0xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 06 Nov 2018 23:00:00 -0000
+
+ros-kinetic-pilz-control (0.4.0-0xenial) xenial; urgency=high
+
+  * joint trajectory controller with holding mode functionality
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Mon, 05 Nov 2018 23:00:00 -0000
+
+
