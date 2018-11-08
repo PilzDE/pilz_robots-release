@@ -1,0 +1,33 @@
+ros-melodic-prbt-ikfast-manipulator-plugin (0.5.0-1stretch) stretch; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 06 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-ikfast-manipulator-plugin (0.4.0-1stretch) stretch; urgency=high
+
+  * add code coverage make target
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Mon, 05 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-ikfast-manipulator-plugin (0.3.0-1stretch) stretch; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 14 Aug 2018 22:00:00 -0000
+
+ros-melodic-prbt-ikfast-manipulator-plugin (0.2.1-1stretch) stretch; urgency=high
+
+  * Add <url> tag to all package.xml files
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 18 Jul 2018 22:00:00 -0000
+
+ros-melodic-prbt-ikfast-manipulator-plugin (0.2.0-1stretch) stretch; urgency=high
+
+  * generate IKfast solver and plugin
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 11 Jul 2018 22:00:00 -0000
+
+
