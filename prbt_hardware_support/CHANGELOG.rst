@@ -2,6 +2,9 @@
 Changelog for package prbt_hardware_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.3 (2018-11-30)
+------------------
+
 0.4.2 (2018-11-08)
 ------------------
 * Fix missing include on std_srvs
