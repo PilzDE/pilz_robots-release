@@ -2,6 +2,14 @@
 Changelog for package prbt_moveit_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.1 (2018-11-30)
+------------------
+* melodic release based on kinetic version 0.4.3
+* Contributors: Pilz GmbH and Co. KG
+
+0.5.0 (2018-11-07)
+------------------
+
 0.4.3 (2018-11-30)
 ------------------
 * load pilz capabilities for command_planner by default
