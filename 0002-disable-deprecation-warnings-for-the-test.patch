@@ -1,0 +1,24 @@
+From 2c6cc57806842addc1a1ee8ceb518daafacb4830 Mon Sep 17 00:00:00 2001
+From: Joachim Schleicher <j.schleicher@pilz.de>
+Date: Fri, 14 Dec 2018 11:19:25 +0000
+Subject: [PATCH 2/2] disable deprecation warnings for the test
+
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 759b798..32172cd 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -58,6 +58,7 @@ if(CATKIN_ENABLE_TESTING)
+   )
+ 
+   target_link_libraries(unittest_prbt_ikfast_manipulator_plugin ${catkin_LIBRARIES})
++  target_compile_options(unittest_prbt_ikfast_manipulator_plugin PRIVATE -Wno-deprecated-declarations)
+ 
+   # run: catkin_make -DENABLE_COVERAGE_TESTING=ON package_name_coverage
+   if(ENABLE_COVERAGE_TESTING)
+-- 
+2.7.4
+
