@@ -33,6 +33,7 @@ find_package(LAPACK REQUIRED)
 
 add_library(${IKFAST_LIBRARY_NAME} src/prbt_manipulator_ikfast_moveit_plugin.cpp)
 target_link_libraries(${IKFAST_LIBRARY_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${LAPACK_LIBRARIES})
+target_compile_options(${IKFAST_LIBRARY_NAME} PRIVATE -Wno-deprecated-declarations)
 
 install(TARGETS ${IKFAST_LIBRARY_NAME} LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
