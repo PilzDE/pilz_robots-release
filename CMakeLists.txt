@@ -58,7 +58,6 @@ if(CATKIN_ENABLE_TESTING)
   )
 
   target_link_libraries(unittest_prbt_ikfast_manipulator_plugin ${catkin_LIBRARIES})
-  target_compile_options(unittest_prbt_ikfast_manipulator_plugin PRIVATE -Wno-deprecated-declarations)
 
   # run: catkin_make -DENABLE_COVERAGE_TESTING=ON package_name_coverage
   if(ENABLE_COVERAGE_TESTING)
