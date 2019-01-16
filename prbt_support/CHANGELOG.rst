@@ -2,13 +2,9 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.5.1 (2018-11-30)
+0.4.4 (2019-01-16)
 ------------------
-* melodic release based on kinetic version 0.4.3
-* Contributors: Pilz GmbH and Co. KG
-
-0.5.0 (2018-11-07)
-------------------
+* Fixup of mesh files due to errors in gazebo visualization
 
 0.4.3 (2018-11-30)
 ------------------

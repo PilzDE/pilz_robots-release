@@ -2,13 +2,10 @@
 Changelog for package prbt_moveit_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.5.1 (2018-11-30)
+0.4.4 (2019-01-16)
 ------------------
-* melodic release based on kinetic version 0.4.3
-* Contributors: Pilz GmbH and Co. KG
-
-0.5.0 (2018-11-07)
-------------------
+* Set default pipeline to ompl. To run with the specified
+  run_depends we cannot default to command_planner.
 
 0.4.3 (2018-11-30)
 ------------------

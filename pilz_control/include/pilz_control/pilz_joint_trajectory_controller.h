@@ -70,23 +70,22 @@ class PilzJointTrajectoryController
      * updateStrategyDefault(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr)
      * or updateStrategyWhileHolding(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr)
      */
-    bool updateTrajectoryCommand(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr,
-                                 std::string* error_string = 0) override;
+    bool updateTrajectoryCommand(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr) override;
 
     /**
      * @brief Hands received JointTrajectory to parent class, normal handling of trajectory
      */
-    bool updateStrategyDefault(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr, std::string* error_string = 0);
+    bool updateStrategyDefault(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr);
 
     /**
      * @brief Strategy applied if no new trajectory should be handled
      */
-    bool updateStrategyWhileHolding(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr, std::string* error_string = 0);
+    bool updateStrategyWhileHolding(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr);
 
     void triggerMovementToHoldPosition();
 
   private:
-    std::function<bool(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr, std::string*)> active_update_strategy_;
+    std::function<bool(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr)> active_update_strategy_;
 
     ros::ServiceServer hold_position_service;
     ros::ServiceServer unhold_position_service;
