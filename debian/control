@@ -1,0 +1,12 @@
+Source: ros-kinetic-prbt-ikfast-manipulator-plugin
+Section: misc
+Priority: extra
+Maintainer: Pilz GmbH and Co. KG <ros@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), liblapack-dev, ros-kinetic-catkin, ros-kinetic-code-coverage, ros-kinetic-moveit-core, ros-kinetic-pluginlib, ros-kinetic-roscpp, ros-kinetic-rostest, ros-kinetic-rosunit, ros-kinetic-tf2-kdl
+Homepage: https://wiki.ros.org/prbt_ikfast_manipulator_plugin
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-prbt-ikfast-manipulator-plugin
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, liblapack-dev, ros-kinetic-moveit-core, ros-kinetic-pluginlib, ros-kinetic-roscpp, ros-kinetic-tf2-kdl
+Description: The prbt_ikfast_manipulator_plugin package
