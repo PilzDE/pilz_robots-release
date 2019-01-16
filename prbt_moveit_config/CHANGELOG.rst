@@ -2,6 +2,11 @@
 Changelog for package prbt_moveit_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.4 (2019-01-16)
+------------------
+* Set default pipeline to ompl. To run with the specified
+  run_depends we cannot default to command_planner.
+
 0.4.3 (2018-11-30)
 ------------------
 * load pilz capabilities for command_planner by default
