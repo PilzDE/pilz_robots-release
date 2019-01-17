@@ -1,0 +1,12 @@
+Source: ros-kinetic-pilz-robots
+Section: misc
+Priority: extra
+Maintainer: Pilz GmbH and Co. KG <ros@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin
+Homepage: http://ros.org/wiki/pilz_robots
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-pilz-robots
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-prbt-ikfast-manipulator-plugin, ros-kinetic-prbt-moveit-config, ros-kinetic-prbt-support
+Description: The metapackage
