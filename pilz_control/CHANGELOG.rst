@@ -2,6 +2,9 @@
 Changelog for package pilz_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.5 (2019-01-16)
+------------------
+
 0.4.4 (2019-01-16)
 ------------------
 * Increase controller holding mode user feedback from INFO to WARN
