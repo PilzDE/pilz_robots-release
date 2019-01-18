@@ -1,0 +1,20 @@
+ros-kinetic-pilz-testutils (0.4.6-0xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Thu, 17 Jan 2019 23:00:00 -0000
+
+ros-kinetic-pilz-testutils (0.4.5-0xenial) xenial; urgency=high
+
+  * Fix missing <build_depend>
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 15 Jan 2019 23:00:00 -0000
+
+ros-kinetic-pilz-testutils (0.4.4-0xenial) xenial; urgency=high
+
+  * Provide class AsyncTest for tests with asynchronous events
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 15 Jan 2019 23:00:00 -0000
+
+

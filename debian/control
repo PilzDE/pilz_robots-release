@@ -1,0 +1,12 @@
+Source: ros-kinetic-pilz-testutils
+Section: misc
+Priority: extra
+Maintainer: Pilz GmbH and Co. KG <ros@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin, ros-kinetic-roscpp
+Homepage: https://wiki.ros.org/pilz_testutils
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-pilz-testutils
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+Description: This package contains testing utilities used by Pilz packages.
