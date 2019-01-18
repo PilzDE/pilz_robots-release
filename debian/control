@@ -1,0 +1,12 @@
+Source: ros-kinetic-prbt-moveit-config
+Section: misc
+Priority: extra
+Maintainer: Pilz GmbH and Co. KG <ros@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin, ros-kinetic-prbt-ikfast-manipulator-plugin, ros-kinetic-prbt-support, ros-kinetic-roslaunch
+Homepage: https://wiki.ros.org/prbt_moveit_config
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-prbt-moveit-config
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-joint-state-publisher, ros-kinetic-moveit-fake-controller-manager, ros-kinetic-moveit-kinematics, ros-kinetic-moveit-planners-ompl, ros-kinetic-moveit-ros-move-group, ros-kinetic-moveit-ros-visualization, ros-kinetic-moveit-simple-controller-manager, ros-kinetic-prbt-ikfast-manipulator-plugin, ros-kinetic-prbt-support, ros-kinetic-robot-state-publisher, ros-kinetic-ros-control, ros-kinetic-ros-controllers, ros-kinetic-rviz, ros-kinetic-xacro
+Description: An automatically generated package with all the configuration and launch files for using the prbt with the MoveIt! Motion Planning Framework
