@@ -2,6 +2,12 @@
 Changelog for package pilz_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.7 (2019-02-15)
+------------------
+* Fixes for new JointTrajectoryController Interface
+* drop outdated can configuration
+* Contributors: Pilz GmbH and Co. KG
+
 0.4.6 (2019-01-18)
 ------------------
 
