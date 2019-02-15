@@ -2,6 +2,12 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.7 (2019-02-15)
+------------------
+* drop outdated can configuration
+* make robot.launch file configurable with args
+* Contributors: Pilz GmbH and Co. KG
+
 0.4.6 (2019-01-18)
 ------------------
 
