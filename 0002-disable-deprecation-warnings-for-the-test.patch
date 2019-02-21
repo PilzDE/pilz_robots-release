@@ -1,7 +1,7 @@
-From 2c6cc57806842addc1a1ee8ceb518daafacb4830 Mon Sep 17 00:00:00 2001
+From 1ea468d15886605507db85ae8a4b5af869aef9d6 Mon Sep 17 00:00:00 2001
 From: Joachim Schleicher <j.schleicher@pilz.de>
 Date: Fri, 14 Dec 2018 11:19:25 +0000
-Subject: [PATCH 2/2] disable deprecation warnings for the test
+Subject: [PATCH 2/4] disable deprecation warnings for the test
 
 ---
  CMakeLists.txt | 1 +
@@ -20,5 +20,5 @@ index 759b798..32172cd 100644
    # run: catkin_make -DENABLE_COVERAGE_TESTING=ON package_name_coverage
    if(ENABLE_COVERAGE_TESTING)
 -- 
-2.7.4
+2.17.1
 
