@@ -1,0 +1,12 @@
+Source: ros-melodic-pilz-testutils
+Section: misc
+Priority: extra
+Maintainer: Alexander Gutenkunst <a.gutenkunst@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, ros-melodic-roscpp
+Homepage: https://wiki.ros.org/pilz_testutils
+Standards-Version: 3.9.2
+
+Package: ros-melodic-pilz-testutils
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+Description: This package contains testing utilities used by Pilz packages.
