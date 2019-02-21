@@ -2,21 +2,20 @@
 Changelog for package pilz_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.4.7 (2019-02-15)
-------------------
-* Fixes for new JointTrajectoryController Interface
-* drop outdated can configuration
-* Contributors: Pilz GmbH and Co. KG
-
-0.4.6 (2019-01-18)
-------------------
-
-0.4.5 (2019-01-16)
-------------------
-
-0.4.4 (2019-01-16)
+0.5.2 (2019-02-21)
 ------------------
 * Increase controller holding mode user feedback from INFO to WARN
+* Contributors: Pilz GmbH and Co. KG
+
+0.5.1 (2018-11-30)
+------------------
+* melodic release based on kinetic version 0.4.3
+* Contributors: Pilz GmbH and Co. KG
+
+0.5.0 (2018-11-07)
+------------------
+* fix joint trajectory controller due to new interface
+* Contributors: Pilz GmbH and Co. KG
 
 0.4.3 (2018-11-30)
 ------------------

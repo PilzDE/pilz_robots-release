@@ -2,21 +2,20 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.4.7 (2019-02-15)
+0.5.2 (2019-02-21)
 ------------------
 * drop outdated can configuration
+* Fixup of mesh files due to errors in gazebo visualization
 * make robot.launch file configurable with args
 * Contributors: Pilz GmbH and Co. KG
 
-0.4.6 (2019-01-18)
+0.5.1 (2018-11-30)
 ------------------
+* melodic release based on kinetic version 0.4.3
+* Contributors: Pilz GmbH and Co. KG
 
-0.4.5 (2019-01-16)
+0.5.0 (2018-11-07)
 ------------------
-
-0.4.4 (2019-01-16)
-------------------
-* Fixup of mesh files due to errors in gazebo visualization
 
 0.4.3 (2018-11-30)
 ------------------
