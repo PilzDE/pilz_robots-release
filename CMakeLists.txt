@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 2.8.12)
 project(prbt_ikfast_manipulator_plugin)
 add_compile_options(-std=c++11)
 add_compile_options(-Wall)
@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   moveit_core
   pluginlib
   roscpp
-  tf_conversions
+  tf2_kdl
 )
 
 include_directories(${catkin_INCLUDE_DIRS})
@@ -22,7 +22,7 @@ catkin_package(
     moveit_core
     pluginlib
     roscpp
-    tf_conversions
+    tf2_kdl
 )
 
 include_directories(include)
@@ -33,7 +33,6 @@ find_package(LAPACK REQUIRED)
 
 add_library(${IKFAST_LIBRARY_NAME} src/prbt_manipulator_ikfast_moveit_plugin.cpp)
 target_link_libraries(${IKFAST_LIBRARY_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${LAPACK_LIBRARIES})
-target_compile_options(${IKFAST_LIBRARY_NAME} PRIVATE -Wno-deprecated-declarations)
 
 install(TARGETS ${IKFAST_LIBRARY_NAME} LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
@@ -58,7 +57,6 @@ if(CATKIN_ENABLE_TESTING)
   )
 
   target_link_libraries(unittest_prbt_ikfast_manipulator_plugin ${catkin_LIBRARIES})
-  target_compile_options(unittest_prbt_ikfast_manipulator_plugin PRIVATE -Wno-deprecated-declarations)
 
   # run: catkin_make -DENABLE_COVERAGE_TESTING=ON package_name_coverage
   if(ENABLE_COVERAGE_TESTING)
