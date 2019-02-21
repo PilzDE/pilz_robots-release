@@ -1,0 +1,12 @@
+Source: ros-melodic-prbt-hardware-support
+Section: misc
+Priority: extra
+Maintainer: Alexander Gutenkunst <a.gutenkunst@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), libmodbus-dev, ros-melodic-catkin, ros-melodic-cmake-modules, ros-melodic-code-coverage, ros-melodic-message-filters, ros-melodic-message-generation, ros-melodic-pilz-testutils, ros-melodic-roscpp, ros-melodic-rostest, ros-melodic-rosunit, ros-melodic-std-msgs, ros-melodic-std-srvs
+Homepage: https://wiki.ros.org/prbt_hardware_support
+Standards-Version: 3.9.2
+
+Package: ros-melodic-prbt-hardware-support
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-message-runtime, ros-melodic-roscpp, ros-melodic-std-msgs, ros-melodic-std-srvs
+Description: Control hardware functions of the PRBT manipulator like STO for Stop1 functionality.
