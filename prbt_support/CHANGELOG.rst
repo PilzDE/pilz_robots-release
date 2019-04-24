@@ -2,20 +2,36 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.5.2 (2019-02-21)
+0.4.8 (2019-04-24)
+------------------
+* Add acceptance test for joint position limits
+* Relax joint limits. 
+* Replace the radian values for the position limits (they have been rounded too roughly).
+* Added support for force-/torque sensors in gazebo
+* allow gripper_name as outside property instead of passing it explicitly
+* Add gripper brackets definition to prbt.xacro
+* Remove unnecessary file test_context.launch
+  This file is moved to pilz_trajectory_generation, where it is mainly used.
+  The test urdf_tests can use the original file planning_context.launch.
+* Add missing dependency on joint_state_controller
+* Relax joint limits (recompute radian values and round up 5th decimal)
+* Contributors: Pilz GmbH and Co. KG
+
+0.4.7 (2019-02-15)
 ------------------
 * drop outdated can configuration
-* Fixup of mesh files due to errors in gazebo visualization
 * make robot.launch file configurable with args
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.1 (2018-11-30)
+0.4.6 (2019-01-18)
 ------------------
-* melodic release based on kinetic version 0.4.3
-* Contributors: Pilz GmbH and Co. KG
 
-0.5.0 (2018-11-07)
+0.4.5 (2019-01-16)
 ------------------
+
+0.4.4 (2019-01-16)
+------------------
+* Fixup of mesh files due to errors in gazebo visualization
 
 0.4.3 (2018-11-30)
 ------------------
