@@ -2,6 +2,9 @@
 Changelog for package pilz_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.8 (2019-04-24)
+------------------
+
 0.4.7 (2019-02-15)
 ------------------
 * Fixes for new JointTrajectoryController Interface
