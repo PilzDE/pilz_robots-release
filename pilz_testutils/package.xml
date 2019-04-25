@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>pilz_testutils</name>
-  <version>0.5.2</version>
+  <version>0.5.3</version>
   <description>This package contains testing utilities used by Pilz packages.</description>
 
   <maintainer email="a.gutenkunst@pilz.de">Alexander Gutenkunst</maintainer>
+  <maintainer email="c.henkel@pilz.de">Christian Henkel</maintainer>
   <maintainer email="h.slusarek@pilz.de">Hagen Slusarek</maintainer>
   <maintainer email="i.martini@pilz.de">Immanuel Martini</maintainer>
 
