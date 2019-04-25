@@ -1,0 +1,86 @@
+ros-melodic-prbt-moveit-config (0.5.3-1stretch) stretch; urgency=high
+
+  * Set interactive marker size in RViz config
+  * Remove unnecessary file test_context.launch
+  * Add missing dependency on joint_state_controller
+  * update the documentation
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 23 Apr 2019 22:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.5.2-1stretch) stretch; urgency=high
+
+  * Remove exec_depend on metapackages
+  * Rename command_planner to pilz_command_planner
+  * Set default pipeline to ompl. To run with the specified
+    run_depends we cannot default to command_planner.
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Wed, 20 Feb 2019 23:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.5.1-1stretch) stretch; urgency=high
+
+  * melodic release based on kinetic version 0.4.3
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Thu, 29 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.5.0-1stretch) stretch; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 06 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.4.3-1stretch) stretch; urgency=high
+
+  * load pilz capabilities for command_planner by default
+  * adjust rviz config
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Thu, 29 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.4.2-1stretch) stretch; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 07 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.4.1-1stretch) stretch; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 06 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.4.0-1stretch) stretch; urgency=high
+
+  * add capabilities argument to moveit_planning_execution.launch
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Mon, 05 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.3.0-1stretch) stretch; urgency=high
+
+  * remove dependency on gripper
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 14 Aug 2018 22:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.2.2-1stretch) stretch; urgency=high
+
+  * Add capabilities argument to move_group.launch
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 25 Jul 2018 22:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.2.1-1stretch) stretch; urgency=high
+
+  * Add <url> tag to all package.xml files
+  * test launch files and add missing dependencies
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 18 Jul 2018 22:00:00 -0000
+
+ros-melodic-prbt-moveit-config (0.2.0-1stretch) stretch; urgency=high
+
+  * configuration files for moveit. see moveit_planning_execution.launch
+  * Contributors: Alexander Gutenkunst, Fahri Demirci, Hagen Slusarek, Immanuel Martini, Joachim Schleicher, Kai Hu
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 11 Jul 2018 22:00:00 -0000
+
+
