@@ -1,4 +1,4 @@
-From 7915d9aadf5bd64eb692f936e4cf9503d0e6552f Mon Sep 17 00:00:00 2001
+From 777cf92a5318522f6222141ca31ab0035784fdd8 Mon Sep 17 00:00:00 2001
 From: Joachim Schleicher <j.schleicher@pilz.de>
 Date: Mon, 7 Jan 2019 13:23:41 +0100
 Subject: [PATCH 4/4] Revert "disable deprecation warnings for the current
@@ -10,7 +10,7 @@ This reverts commit ff16b94a6e08e0dfc59ad84a65a63d62de4bf4a7.
  1 file changed, 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 759b798..87808f2 100644
+index 3ca771a..866b239 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -33,7 +33,6 @@ find_package(LAPACK REQUIRED)

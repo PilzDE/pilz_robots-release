@@ -1,4 +1,4 @@
-From 1ea468d15886605507db85ae8a4b5af869aef9d6 Mon Sep 17 00:00:00 2001
+From 5f48bd39b9aef3020866b107da34cc02afbc2de1 Mon Sep 17 00:00:00 2001
 From: Joachim Schleicher <j.schleicher@pilz.de>
 Date: Fri, 14 Dec 2018 11:19:25 +0000
 Subject: [PATCH 2/4] disable deprecation warnings for the test
@@ -8,7 +8,7 @@ Subject: [PATCH 2/4] disable deprecation warnings for the test
  1 file changed, 1 insertion(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 759b798..32172cd 100644
+index 3ca771a..7e9b00e 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -58,6 +58,7 @@ if(CATKIN_ENABLE_TESTING)

@@ -1,4 +1,4 @@
-From b845db33ba5455e9c48dc6d9960419a3494e2292 Mon Sep 17 00:00:00 2001
+From 83c3dd2c1b3ac22b3b78ce9fb8dbc69e768e3951 Mon Sep 17 00:00:00 2001
 From: Joachim Schleicher <j.schleicher@pilz.de>
 Date: Mon, 7 Jan 2019 13:23:41 +0100
 Subject: [PATCH 3/4] Revert "disable deprecation warnings for the test"
@@ -9,7 +9,7 @@ This reverts commit 1ea468d15886605507db85ae8a4b5af869aef9d6.
  1 file changed, 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 32172cd..759b798 100644
+index 7e9b00e..3ca771a 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -58,7 +58,6 @@ if(CATKIN_ENABLE_TESTING)
