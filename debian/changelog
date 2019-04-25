@@ -1,0 +1,55 @@
+ros-melodic-prbt-hardware-support (0.5.3-1stretch) stretch; urgency=high
+
+  * cleanup CMakeLists of prbt_hardware_support
+  * update the documentation
+  * more precise error output when failing to read modbus register
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 23 Apr 2019 22:00:00 -0000
+
+ros-melodic-prbt-hardware-support (0.5.2-1stretch) stretch; urgency=high
+
+  * Update used pipeline in test from command_planner to pilz_command_planner
+  * Fix PilzModbusReadClient unittest
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Wed, 20 Feb 2019 23:00:00 -0000
+
+ros-melodic-prbt-hardware-support (0.5.1-1stretch) stretch; urgency=high
+
+  * melodic release based on kinetic version 0.4.3
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Thu, 29 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-hardware-support (0.5.0-1stretch) stretch; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 06 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-hardware-support (0.4.3-1stretch) stretch; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Thu, 29 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-hardware-support (0.4.2-1stretch) stretch; urgency=high
+
+  * Fix missing include on std_srvs
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 07 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-hardware-support (0.4.1-1stretch) stretch; urgency=high
+
+  * Use Modbus API v2 due to wrongly specified version 1
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 06 Nov 2018 23:00:00 -0000
+
+ros-melodic-prbt-hardware-support (0.4.0-1stretch) stretch; urgency=high
+
+  * Modbus client node and STO modbus adapter node for Stop 1 functionality
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Mon, 05 Nov 2018 23:00:00 -0000
+
+
