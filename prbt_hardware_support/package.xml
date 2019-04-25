@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <package>
   <name>prbt_hardware_support</name>
-  <version>0.4.8</version>
+  <version>0.5.3</version>
   <description>Control hardware functions of the PRBT manipulator like STO for Stop1 functionality.</description>
 
   <maintainer email="a.gutenkunst@pilz.de">Alexander Gutenkunst</maintainer>
+  <maintainer email="c.henkel@pilz.de">Christian Henkel</maintainer>
   <maintainer email="h.slusarek@pilz.de">Hagen Slusarek</maintainer>
   <maintainer email="i.martini@pilz.de">Immanuel Martini</maintainer>
 
