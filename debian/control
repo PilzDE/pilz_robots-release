@@ -1,0 +1,12 @@
+Source: ros-melodic-prbt-gazebo
+Section: misc
+Priority: extra
+Maintainer: Alexander Gutenkunst <a.gutenkunst@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-actionlib, ros-melodic-catkin, ros-melodic-roscpp, ros-melodic-rostest, ros-melodic-trajectory-msgs
+Homepage: https://wiki.ros.org/prbt_gazebo
+Standards-Version: 3.9.2
+
+Package: ros-melodic-prbt-gazebo
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-gazebo-ros, ros-melodic-gazebo-ros-control, ros-melodic-prbt-moveit-config, ros-melodic-prbt-support, ros-melodic-roslaunch, ros-melodic-xacro
+Description: Launch prbt robot in an empty Gazebo world.
