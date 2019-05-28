@@ -2,6 +2,16 @@
 Changelog for package prbt_hardware_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.4 (2019-05-27)
+------------------
+* increased modbus response timeout to 20ms
+* publish brake test requests obtained from safety controller via modbus
+* sto_modbus_adapter waits for the services to appear instead of throwing exceptions
+* Add ability to execute a braketest on each drive.
+* Add service to access the active operation mode
+* Contributors: Pilz GmbH and Co. KG
+
+
 0.5.3 (2019-04-24)
 ------------------
 * cleanup CMakeLists of prbt_hardware_support
