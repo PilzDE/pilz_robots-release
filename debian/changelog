@@ -1,0 +1,40 @@
+ros-kinetic-pilz-testutils (0.4.9-1xenial) xenial; urgency=high
+
+
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 18 Jun 2019 22:00:00 -0000
+
+ros-kinetic-pilz-testutils (0.4.8-1xenial) xenial; urgency=high
+
+  * Make docu compabtible with both kinetic and melodic
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 23 Apr 2019 22:00:00 -0000
+
+ros-kinetic-pilz-testutils (0.4.7-1xenial) xenial; urgency=high
+
+  * drop outdated can configuration
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Thu, 14 Feb 2019 23:00:00 -0000
+
+ros-kinetic-pilz-testutils (0.4.6-1xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Thu, 17 Jan 2019 23:00:00 -0000
+
+ros-kinetic-pilz-testutils (0.4.5-1xenial) xenial; urgency=high
+
+  * Fix missing <build_depend>
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 15 Jan 2019 23:00:00 -0000
+
+ros-kinetic-pilz-testutils (0.4.4-1xenial) xenial; urgency=high
+
+  * Provide class AsyncTest for tests with asynchronous events
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 15 Jan 2019 23:00:00 -0000
+
+
