@@ -2,6 +2,11 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.9 (2019-06-19)
+------------------
+* instantiate pg70 xacro macro (due to change in prbt_grippers)
+* Contributors: Pilz GmbH and Co. KG
+
 0.4.8 (2019-04-24)
 ------------------
 * Add acceptance test for joint position limits
