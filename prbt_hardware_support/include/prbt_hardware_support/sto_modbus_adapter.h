@@ -29,8 +29,8 @@
 #include <prbt_hardware_support/ModbusMsgInStamped.h>
 #include <prbt_hardware_support/update_filter.h>
 
-#include <prbt_hardware_support/sto_modbus_adapter_exception.h>
 #include <prbt_hardware_support/modbus_msg_sto_wrapper.h>
+#include <prbt_hardware_support/modbus_api_spec.h>
 
 namespace prbt_hardware_support
 {
@@ -51,9 +51,9 @@ public:
   /**
    * @brief Constructor.
    * @param nh The node handle.
-   * @param index_of_first_register_to_read Offset of the data in the modbus registers.
+   * @param api_spec The api_spec to get the register values from.
    */
-  PilzStoModbusAdapterNode(ros::NodeHandle& nh);
+  PilzStoModbusAdapterNode(ros::NodeHandle& nh, const ModbusApiSpec& api_spec);
   ~PilzStoModbusAdapterNode();
 
   static const std::string HOLD_SERVICE;
@@ -64,7 +64,7 @@ public:
 private:
   /**
    * @brief Extracts from Modbus message if STO is set or not and publishes information on the /stop1 topic.
-   * @param modbus_msg
+   * @param msg_raw
    */
   void modbusInMsgCallback(const ModbusMsgInStampedConstPtr& msg_raw);
 
@@ -77,7 +77,7 @@ private:
 
   /**
    * @brief Extracts from Modbus message if STO is set or not and publishes information on the /stop1 topic.
-   * @param modbus_msg
+   * @param msg
    */
   void internalMsgCallback(const ModbusMsgStoWrapper& msg);
 
@@ -85,7 +85,9 @@ private:
 
   static constexpr unsigned int MODBUS_API_VERSION_REQUIRED {2};
 
-  static constexpr int WAIT_FOR_SERVICE_TIMEOUT_S {5};
+  static constexpr double RETRY_SERVICE_CONNECTION_TIME_S {0.2};
+
+  static constexpr double WAIT_FOR_SERVICE_TIMEOUT_S {5.0};
 
   /**
    * @brief Specifies the time between holding the controller and disabling the driver. This allows the controller
@@ -124,6 +126,8 @@ private:
   //! ServiceClient attached to the driver <code>/halt</code> service
   ros::ServiceClient halt_srv_client_;
 
+  //! Holds the current definition of relevant registers
+  const ModbusApiSpec api_spec_;
 };
 
 }
