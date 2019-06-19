@@ -1,0 +1,103 @@
+ros-kinetic-prbt-support (0.4.9-1xenial) xenial; urgency=high
+
+  * instantiate pg70 xacro macro (due to change in prbt_grippers)
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 18 Jun 2019 22:00:00 -0000
+
+ros-kinetic-prbt-support (0.4.8-1xenial) xenial; urgency=high
+
+  * Add acceptance test for joint position limits
+  * Relax joint limits.
+  * Replace the radian values for the position limits (they have been rounded too roughly).
+  * Added support for force-/torque sensors in gazebo
+  * allow gripper_name as outside property instead of passing it explicitly
+  * Add gripper brackets definition to prbt.xacro
+  * Remove unnecessary file test_context.launch
+    This file is moved to pilz_trajectory_generation, where it is mainly used.
+    The test urdf_tests can use the original file planning_context.launch.
+  * Add missing dependency on joint_state_controller
+  * Relax joint limits (recompute radian values and round up 5th decimal)
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 23 Apr 2019 22:00:00 -0000
+
+ros-kinetic-prbt-support (0.4.7-1xenial) xenial; urgency=high
+
+  * drop outdated can configuration
+  * make robot.launch file configurable with args
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Thu, 14 Feb 2019 23:00:00 -0000
+
+ros-kinetic-prbt-support (0.4.6-1xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Thu, 17 Jan 2019 23:00:00 -0000
+
+ros-kinetic-prbt-support (0.4.5-1xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 15 Jan 2019 23:00:00 -0000
+
+ros-kinetic-prbt-support (0.4.4-1xenial) xenial; urgency=high
+
+  * Fixup of mesh files due to errors in gazebo visualization
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 15 Jan 2019 23:00:00 -0000
+
+ros-kinetic-prbt-support (0.4.3-1xenial) xenial; urgency=high
+
+  * Update readme
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Thu, 29 Nov 2018 23:00:00 -0000
+
+ros-kinetic-prbt-support (0.4.2-1xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 07 Nov 2018 23:00:00 -0000
+
+ros-kinetic-prbt-support (0.4.1-1xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 06 Nov 2018 23:00:00 -0000
+
+ros-kinetic-prbt-support (0.4.0-1xenial) xenial; urgency=high
+
+  * Enable prbt model to be used in combination with Gazebo
+  * Add improved values for mass and inertia for all links
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Mon, 05 Nov 2018 23:00:00 -0000
+
+ros-kinetic-prbt-support (0.3.0-1xenial) xenial; urgency=high
+
+  * remove dependency on gripper
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 14 Aug 2018 22:00:00 -0000
+
+ros-kinetic-prbt-support (0.2.2-1xenial) xenial; urgency=high
+
+  * Move constants inside prbt_macro.xacro into local namespace.
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 25 Jul 2018 22:00:00 -0000
+
+ros-kinetic-prbt-support (0.2.1-1xenial) xenial; urgency=high
+
+  * Add <url> tag to all package.xml files
+  * test launch files and add missing dependencies
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 18 Jul 2018 22:00:00 -0000
+
+ros-kinetic-prbt-support (0.2.0-1xenial) xenial; urgency=high
+
+  * initial robot model for prbt with and without pg+70 gripper
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 11 Jul 2018 22:00:00 -0000
+
+
