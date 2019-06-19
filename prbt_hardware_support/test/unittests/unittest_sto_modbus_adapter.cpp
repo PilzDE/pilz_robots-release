@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
+#include <thread>
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
@@ -28,6 +29,7 @@
 
 #include <prbt_hardware_support/modbus_topic_definitions.h>
 #include <prbt_hardware_support/modbus_api_definitions.h>
+#include <prbt_hardware_support/modbus_api_spec.h>
 #include <prbt_hardware_support/param_names.h>
 #include <prbt_hardware_support/ModbusMsgInStamped.h>
 #include <prbt_hardware_support/modbus_msg_sto_wrapper.h>
@@ -45,6 +47,9 @@ static const std::string STO_ADAPTER_NODE_NAME {"/sto_modbus_adapter_node"};
 
 static constexpr bool STO_CLEAR {true};
 static constexpr bool STO_ACTIVE {false};
+
+static const ModbusApiSpec test_api_spec{ {modbus_api_spec::VERSION, 513},
+                                          {modbus_api_spec::STO, 512} };
 
 static constexpr int MODBUS_API_VERSION_FOR_TESTING {2};
 
@@ -75,6 +80,7 @@ protected:
   void SetUp();
 
   ModbusMsgInStampedPtr createDefaultStoModbusMsg(bool sto_clear);
+  std::thread asyncConstructor();
 
 protected:
   ros::NodeHandle nh_;
@@ -118,6 +124,14 @@ ModbusMsgInStampedPtr PilzStoModbusAdapterTest::createDefaultStoModbusMsg(bool s
   return msg;
 }
 
+std::thread PilzStoModbusAdapterTest::asyncConstructor()
+{
+  std::thread t([this](){
+                    PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
+                  });
+  return t;
+}
+
 /**
  * @brief Test that the Setup functions properly
  */
@@ -125,13 +139,15 @@ TEST_F(PilzStoModbusAdapterTest, testSetup)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_EQ(1, pub_.getNumSubscribers());
 }
 
 /**
- * @brief Test an expection is thrown if there is no disable service to disable the drives
+ * @brief Test constructor with delayed halt service
+ *
+ * Expected: Constructor blocks until the halt service is available.
  */
 TEST_F(PilzStoModbusAdapterTest, testSetupNoDisableService)
 {
@@ -139,13 +155,18 @@ TEST_F(PilzStoModbusAdapterTest, testSetupNoDisableService)
   manipulator_.advertiseUnholdService(nh_, UNHOLD_SERVICE_T);
   manipulator_.advertiseRecoverService(nh_, RECOVER_SERVICE_T);
 
-  EXPECT_THROW(PilzStoModbusAdapterNode adapter_node(nh_), PilzStoModbusAdapterNodeException);
+  auto t = asyncConstructor();
+  ros::Duration(5.5).sleep(); // slightly longer than WAIT_FOR_SERVICE_TIMEOUT_S
 
-  EXPECT_EQ(0, pub_.getNumSubscribers());
+  EXPECT_EQ(0, pub_.getNumSubscribers()); // the constructor should wait, no subscription yet
+  manipulator_.advertiseHaltService(nh_, HALT_SERVICE_T);
+  t.join();
 }
 
 /**
- * @brief Test that no expection is thrown if there is no service for unholding the controller
+ * @brief Test constructor if there is no service for unholding the controller
+ *
+ * Expected: Constructor finishes successfully without unhold service.
  */
 TEST_F(PilzStoModbusAdapterTest, testSetupNoUnholdService)
 {
@@ -153,13 +174,15 @@ TEST_F(PilzStoModbusAdapterTest, testSetupNoUnholdService)
   manipulator_.advertiseHaltService(nh_, HALT_SERVICE_T);
   manipulator_.advertiseRecoverService(nh_, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_EQ(1, pub_.getNumSubscribers());
 }
 
 /**
- * @brief Test that no expection is thrown if there is no service for recovering the driver
+ * @brief Test constructor if there is no service for recovering the driver
+ *
+ * Expected: Constructor finishes successfully without recover service
  */
 TEST_F(PilzStoModbusAdapterTest, testSetupNoRecoverService)
 {
@@ -167,13 +190,15 @@ TEST_F(PilzStoModbusAdapterTest, testSetupNoRecoverService)
   manipulator_.advertiseUnholdService(nh_, UNHOLD_SERVICE_T);
   manipulator_.advertiseHaltService(nh_, HALT_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_EQ(1, pub_.getNumSubscribers());
 }
 
 /**
- * @brief Test that a expection is thrown if there is no service for holding the controller
+ * @brief Test constructor with delayed hold service
+ *
+ * Expected: Constructor blocks until the hold service is available.
  */
 TEST_F(PilzStoModbusAdapterTest, testSetupNoHoldService)
 {
@@ -181,9 +206,12 @@ TEST_F(PilzStoModbusAdapterTest, testSetupNoHoldService)
   manipulator_.advertiseHaltService(nh_, HALT_SERVICE_T);
   manipulator_.advertiseRecoverService(nh_, RECOVER_SERVICE_T);
 
-  EXPECT_THROW(PilzStoModbusAdapterNode adapter_node(nh_), PilzStoModbusAdapterNodeException);
+  auto t = asyncConstructor();
+  ros::Duration(5.5).sleep(); // slightly longer than WAIT_FOR_SERVICE_TIMEOUT_S
 
-  EXPECT_EQ(0, pub_.getNumSubscribers());
+  EXPECT_EQ(0, pub_.getNumSubscribers()); // the constructor should wait, no subscription yet
+  manipulator_.advertiseHoldService(nh_, HOLD_SERVICE_T);
+  t.join();
 }
 
 /**
@@ -193,7 +221,7 @@ TEST_F(PilzStoModbusAdapterTest, testClearMsg)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_CLEARANCE
 
@@ -209,7 +237,7 @@ TEST_F(PilzStoModbusAdapterTest, testRemoveUnholdService)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_CALL(manipulator_, recoverCb(_,_)).Times(1).WillOnce(ACTION_OPEN_BARRIER("recover_callback"));
 
@@ -226,7 +254,7 @@ TEST_F(PilzStoModbusAdapterTest, testRemoveRecoverService)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_CALL(manipulator_, unholdCb(_,_)).Times(1).WillOnce(ACTION_OPEN_BARRIER("unhold_callback"));
 
@@ -245,7 +273,7 @@ TEST_F(PilzStoModbusAdapterTest, testHoldMsg)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_STOP1
 
@@ -262,7 +290,7 @@ TEST_F(PilzStoModbusAdapterTest, testDisconnectNoStoMsg)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_STOP1
 
@@ -282,7 +310,7 @@ TEST_F(PilzStoModbusAdapterTest, testDisconnectWithStoMsg)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_STOP1
 
@@ -302,7 +330,7 @@ TEST_F(PilzStoModbusAdapterTest, testDisconnectPure)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_STOP1
 
@@ -322,7 +350,7 @@ TEST_F(PilzStoModbusAdapterTest, testNoVersion)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_STOP1
 
@@ -341,7 +369,7 @@ TEST_F(PilzStoModbusAdapterTest, testWrongVersion)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_STOP1
 
@@ -363,7 +391,7 @@ TEST_F(PilzStoModbusAdapterTest, testVersion1)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_STOP1
 
@@ -383,27 +411,17 @@ TEST_F(PilzStoModbusAdapterTest, testNoSto)
 {
   manipulator_.advertiseServices(nh_, HOLD_SERVICE_T, UNHOLD_SERVICE_T, HALT_SERVICE_T, RECOVER_SERVICE_T);
 
-  PilzStoModbusAdapterNode adapter_node(nh_);
+  PilzStoModbusAdapterNode adapter_node(nh_, test_api_spec);
 
   EXPECT_STOP1
 
   ModbusMsgInStampedPtr msg = createDefaultStoModbusMsg(STO_ACTIVE);
   msg->holding_registers.data.erase(msg->holding_registers.data.begin());
-  msg->holding_registers.layout.data_offset = modbus_api::MODBUS_REGISTER_API;
+  msg->holding_registers.layout.data_offset = test_api_spec.getRegisterDefinition(modbus_api_spec::VERSION);
 
   pub_.publish(msg);
 
   BARRIER("halt_callback");
-}
-
-/**
- * @brief Check construction of the exception (essentially for full function coverage)
- */
-TEST_F(PilzStoModbusAdapterTest, ExceptionCTOR)
-{
-  PilzStoModbusAdapterNodeException* exception = new PilzStoModbusAdapterNodeException("test");
-
-  delete exception;
 }
 
 /**
