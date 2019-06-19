@@ -2,6 +2,9 @@
 Changelog for package prbt_moveit_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.9 (2019-06-19)
+------------------
+
 0.4.8 (2019-04-24)
 ------------------
 * Set interactive marker size in RViz config
