@@ -1,0 +1,68 @@
+ros-kinetic-prbt-hardware-support (0.4.9-1xenial) xenial; urgency=high
+
+  * increased modbus response timeout to 20ms
+  * publish brake test requests obtained from safety controller via modbus
+  * sto_modbus_adapter waits for the services to appear instead of throwing exceptions
+  * Add ability to execute a braketest on each drive.
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 18 Jun 2019 22:00:00 -0000
+
+ros-kinetic-prbt-hardware-support (0.4.8-1xenial) xenial; urgency=high
+
+  * cleanup CMakeLists of prbt_hardware_support
+  * update the documentation
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 23 Apr 2019 22:00:00 -0000
+
+ros-kinetic-prbt-hardware-support (0.4.7-1xenial) xenial; urgency=high
+
+  * drop outdated can configuration
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Thu, 14 Feb 2019 23:00:00 -0000
+
+ros-kinetic-prbt-hardware-support (0.4.6-1xenial) xenial; urgency=high
+
+  * Update used pipeline in test from command_planner to pilz_command_planner
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Thu, 17 Jan 2019 23:00:00 -0000
+
+ros-kinetic-prbt-hardware-support (0.4.5-1xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 15 Jan 2019 23:00:00 -0000
+
+ros-kinetic-prbt-hardware-support (0.4.4-1xenial) xenial; urgency=high
+
+  * Fix PilzModbusReadClient unittest
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 15 Jan 2019 23:00:00 -0000
+
+ros-kinetic-prbt-hardware-support (0.4.3-1xenial) xenial; urgency=high
+
+
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Thu, 29 Nov 2018 23:00:00 -0000
+
+ros-kinetic-prbt-hardware-support (0.4.2-1xenial) xenial; urgency=high
+
+  * Fix missing include on std_srvs
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Wed, 07 Nov 2018 23:00:00 -0000
+
+ros-kinetic-prbt-hardware-support (0.4.1-1xenial) xenial; urgency=high
+
+  * Use Modbus API v2 due to wrongly specified version 1
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Tue, 06 Nov 2018 23:00:00 -0000
+
+ros-kinetic-prbt-hardware-support (0.4.0-1xenial) xenial; urgency=high
+
+  * Modbus client node and STO modbus adapter node for Stop 1 functionality
+
+ -- Pilz GmbH and Co. KG <ros@pilz.de>  Mon, 05 Nov 2018 23:00:00 -0000
+
+
