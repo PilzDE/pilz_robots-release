@@ -25,37 +25,28 @@ namespace prbt_hardware_support
 static const std::string SERVICE_NAME_IS_BRAKE_TEST_REQUIRED = "/prbt/brake_test_required";
 
 AdapterBrakeTest::AdapterBrakeTest(ros::NodeHandle& nh)
-  : initialized_(false)
-  , nh_(nh) {
+{
+    is_brake_test_required_server_ = nh.advertiseService(SERVICE_NAME_IS_BRAKE_TEST_REQUIRED,
+                                                        &AdapterBrakeTest::isBrakeTestRequired,
+                                                        this);
 }
 
-void AdapterBrakeTest::init() {
-	is_brake_test_required_server_ = nh_.advertiseService(SERVICE_NAME_IS_BRAKE_TEST_REQUIRED,
-	                                                      &AdapterBrakeTest::isBrakeTestRequired,
-	                                                      this);
-}
-
-void AdapterBrakeTest::updateBrakeTestRequiredState(bool brake_test_required) {
-	brake_test_required_ = brake_test_required;
-
-  if(brake_test_required_){
+void AdapterBrakeTest::updateBrakeTestRequiredState(IsBrakeTestRequiredResponse::_result_type brake_test_required)
+{
+  IsBrakeTestRequiredResponse::_result_type last_brake_test_flag {brake_test_required_};
+  brake_test_required_ = brake_test_required;
+  if(brake_test_required_ == IsBrakeTestRequiredResponse::REQUIRED
+     && last_brake_test_flag != IsBrakeTestRequiredResponse::REQUIRED)
+  {
     ROS_INFO("Brake Test required.");
   }
-  else {
-    ROS_INFO("Brake Test not required.");
-  }
-
-	// when the first data is received, the node is initialized (i.e. the service advertised)
-	if(!initialized_) {
-		init();
-		initialized_ = true;
-	}
 }
 
-bool AdapterBrakeTest::isBrakeTestRequired(IsBrakeTestRequired::Request& req,
-				                                     IsBrakeTestRequired::Response& res) {
-	res.result = brake_test_required_;
-	return true;
+bool AdapterBrakeTest::isBrakeTestRequired(IsBrakeTestRequired::Request& /*req*/,
+                                           IsBrakeTestRequired::Response& res)
+{
+  res.result = brake_test_required_;
+  return true;
 }
 
-}
+} // namespace prbt_hardware_support
