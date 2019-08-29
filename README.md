@@ -1,170 +1,89 @@
-[![PILZ](prbt_support/img/pilz-logo.png)](https://www.pilz.com)
-# PILZ robot manipulator module PRBT 6 in ROS
+# Overview
+The prbt_hardware_support package contains files supporting the certification of a robot system including the PRBT manipulator according to DIN EN ISO 10218-1. As safety controllers the Pilz hardware PNOZmulti and PSS4000 are supported. A Modbus connection is used for the communication between ROS <-> safety controller.
 
-## Package: pilz_robots
-The meta package for the PILZ manipulator PRBT 6. Here you can find documentation of the individual packages. For a general overview and link collection we refer to the [wiki page](http://wiki.ros.org/pilz_robots).
+There is no need to call these launch files directly; they are included from `prbt_support/robot.launch`.
 
-![PRBT manipulator](prbt_support/img/prbt.jpg)
+## STO
+The STO function (“Safe torque off”) of the robot arm is a safety function to immediately turn off torque of the drives.
 
-### Installation
-To use the packages, you can install prebuilt packages with
-```
-sudo apt install ros-kinetic-pilz-robots
-or
-sudo apt install ros-melodic-pilz-robots
-```
+## SBC
+The SBC function ("Safe brake control") of the robot arm is a safety function which is used in conjunction with the STO and prevents a motion when the torque of the drives is turned off.
 
-### Build Status
+# Safe stop 1 (SS1)
+To allow a controlled stop, the safety controller delays the STO signal by several milliseconds. This package opens a
+modbus connection to the safety controller (PNOZmulti or PSS4000). The safety controller sends an emergency
+stop signal via Modbus immediately so that ros_control has a short time interval to stop the drives via a brake ramp.
+The TCP could for example brake on the current trajectory. After execution of the brake ramp, the drivers are halted. Even if ROS would fail, the safety controller turns off the motors via STO (that would be a Stop 0 then).
 
-#### Travis
+## Possible error cases and their handling
 
-|   | Kinetic | Melodic |
-| ----| --------|-------- |
-| Travis  | [![Build Status](https://travis-ci.org/PilzDE/pilz_robots.svg?branch=kinetic-devel)](https://travis-ci.org/PilzDE/pilz_robots) | [![Build Status](https://travis-ci.org/PilzDE/pilz_robots.svg?branch=melodic-devel)](https://travis-ci.org/PilzDE/pilz_robots) |
-| Buildfarm src | [![buildfarm](http://build.ros.org/buildStatus/icon?job=Ksrc_uX__pilz_robots__ubuntu_xenial__source)](http://build.ros.org/view/Ksrc_uX/job/Ksrc_uX__pilz_robots__ubuntu_xenial__source/) | [![buildfarm](http://build.ros.org/buildStatus/icon?job=Msrc_uB__pilz_robots__ubuntu_bionic__source)](http://build.ros.org/view/Msrc_uB/job/Msrc_uB__pilz_robots__ubuntu_bionic__source/) |
-| Buildfarm bin | [![buildfarm](http://build.ros.org/buildStatus/icon?job=Kbin_uX64__pilz_robots__ubuntu_xenial_amd64__binary)](http://build.ros.org/view/Kbin_uX64/job/Kbin_uX64__pilz_robots__ubuntu_xenial_amd64__binary/) | [![buildfarm](http://build.ros.org/buildStatus/icon?job=Mbin_uB64__pilz_robots__ubuntu_bionic_amd64__binary)](http://build.ros.org/view/Mbin_uB64/job/Mbin_uB64__pilz_robots__ubuntu_bionic_amd64__binary/)| 
+| Error cases                                             | Handling                                                |
+| ------------------------------------------------------- | ------------------------------------------------------- |
+| Modbus client crashes                                   | ROS system is shutdown which leads to an abrupt stop of the robot. |
+| STO Modbus adapter crashes                              | ROS system is shutdown which leads to an abrupt stop of the robot. |
+| Connection loss between PNOZmulti/PSS4000 & Modbus client        | Stop 1 is triggered                                     |
+| System overload (messages don't arrive in time)         | In case a Stop 1 message does not arrive in time, the safety controller will automatically perform a hard stop. In case a Stop 1-release message does not get through, brakes will remain closed. |
+| STO Modbus adapter cannot connect to stop services    | ROS system will not start.                              |
+| STO Modbus adapter cannot connect to recover services | Node does start and robot can be moved until a stop is triggered. Afterwards the brakes will remain closed. |
 
-## Package: prbt_support
-The package contains the robot description of the PRBT manipulator.
-- `urdf/` contains the xacros for generating the urdf descriptions of the PILZ robot PRBT.
-- `meshes/` contains the stl files for visualization
-- `test/` contains test files for urdf
-  - build tests: `catkin_make tests`
-  - build and run tests: `catkin_make run_tests`
-- `config/` defines the controllers and drivers. Loads the specialized `PilzTrajectoryController`.
+# Brake tests
+Brake tests are an integral part of the SBC, since they detect misfunctions of the brakes or the brake control in general. Brake tests for each drive have to be executed at a regular interval. When the safety controller requests brake tests, they have to be executed within 1 hour, else the robot cannot be moved anymore.
 
-### Pilz Coordinate Frames
-To see the robot in rviz you can use
-``roslaunch prbt_support test_urdf.launch``
+# Operation Modes
+The robot system can be controlled in various modes.
 
-The joint directions are illustrated in the following image:
-![Joints](prbt_support/img/joints.png)
+These modes are:
+  - T1: Speed reduced to 250 mm/s (each robot-frame), enabling switch must be pressed
+  - T2: The robot moves at full speed but still the enabling switch must be pressed
+  - AUTOMATIC: The robot moves at full speed and follows a predefined program/process. No enabling switch is needed but safety has to be ensured by safety peripherie (fences, light curtains, ...).
 
-### Configure the tcp
-You can easily adjust the tool center point frame with an offset and rotation in the xacro file.
+See DIN EN ISO 10218-1 for more details or contact us: ros@pilz.de
 
-1. Open prbt_support/urdf/prbt.xacro
-2. Edit the lines to your desired offset
+# Architecture
+![Component diagram](doc/architecture_overview.png)
 
-```
-  <xacro:unless value="$(arg gripper)">
-    <xacro:arg name="tcp_offset_xyz" default="0 0 0"/>
-    <xacro:arg name="tcp_offset_rpy" default="0 0 0"/>
-  </xacro:unless>
-```
+# ROS API
 
-Note: You can set a different default if you have a gripper attached.
+## ModbusClient
+A Modbus client (for usage with the PNOZmulti or PSS4000) can be started with `roslaunch prbt_hardware_support modbus_client.launch`.
 
-## Package: prbt\_moveit\_config
-The package is generated by moveit setup assistant. It contains configuration files and launch files needed
-to start up the robot including planning and execution.
+### Published Topics
+- ~/pilz_modbus_client_node/modbus_read (prbt_hardware_support/ModbusMsgInStamped)
+  - Holds information about the modbus holding register. Timestamp is only updated if the register content changed.
 
-![PRBT with MotionPlanningPlugin in rviz](prbt_moveit_config/img/prbt_rviz_planning_screenshot.png)
+### Parameters
+- modbus_server_ip
+- modbus_server_port
+- index_of_first_register_to_read
+- num_registers_to_read
+- modbus_connection_retries (default: 10)
+- modbus_connection_retry_timeout - timeout between retries (default: 1s)
+- modbus_response_timeout (default: 20ms)
+- modbus_read_topic_name (default: "/pilz_modbus_client_node/modbus_read")
+- modbus_write_service_name (default: "/pilz_modbus_client_node/modbus_write")
 
-### Configuring the robot
-Use the launch file `moveit_planning_execution.launch` to bringup the robot controllers
-with the complete moveit pipeline.
-The launch file allows to set optional parameters
-* `sim` (default: True) <br>
-    true: Use fake execution and display emulated robot position in RViz<br>
-    false: connect to real robot using `ros_canopen`
-* `pipeline` (default: ompl) <br>
-    Planning pipeline to use with moveit
-* `load_robot_description` (default: True)<br>
-    Load robot description to parameter server. Can be set to false to let someone else load the model
-* `rviz_config` (default: prbt_moveit_config/launch/moveit.rviz)<br>
-    Start RViz with default configuration settings. Once you have changed the configuration and have saved
-       it inside your package folder, set the path and file name here.
-* `gripper` (default: None) <br>
-    See [Running the prbt with a gripper](#running-the-prbt-with-a-gripper)
-* `sto` (default: pnoz)<br>
-    Connect to the safety controller that handles the safe-torque-off signal. 
-	Only relevant for `sim:=False` to issue a Safe stop 1.
-	See [prbt_hardware_support package](prbt_hardware_support/README.md).
+**Please note:**
+- The parameters ``modbus_response_timeout`` and ``modbus_read_topic_name`` are
+important for the Safe stop 1 functionality and must NOT be given, if the
+``pilz_modbus_client_node`` is used as part of the Safe stop 1 functionality.
+If the parameters are not given the default values for these parameters are used.
 
-### Running the simulation
-1. Run `roslaunch prbt_moveit_config moveit_planning_execution.launch sim:=true pipeline:=ompl`
-2. Use the moveit Motion Planning rviz plugin to plan and execute
-   (see e.g. [ROS-I training exercise 3.4](https://industrial-training-master.readthedocs.io/en/melodic/_source/session3/Motion-Planning-RVIZ.html))
+## ModbusAdapterStoNode
+The ``ModbusAdapterSto`` is noticed via the topic `/pilz_modbus_client_node/modbus_read` if the STO is true or false and reacts as follows calling the corresponding services of the controllers and drivers:
+- **STO true:**
+enable drives, unhold controllers
+- **STO false:**
+hold controllers, disable drives
 
-### Running on the real robot
-1. Bringup can: `sudo ip link set can0 up type can bitrate 1000000` (after every reboot or reconnect of the CAN hardware).
-   For persistent configuration append the following to the file `/etc/network/interfaces`
+## ModbusAdapterBrakeTestNode
+The ``ModbusAdapterBrakeTestNode`` offers the `/prbt/brake_test_required` service which informs if the PSS4000 requests
+a brake test or if a brake test request is no longer prevailing.
 
-```
-auto can0
-iface can0 can static
-        bitrate 1000000
-```
+## BraketestExecutorNode
+The ``BraketestExecutorNode`` offers the `/execute_braketest` service which, in interaction with the ``CanOpenBraketestAdapter``,
+executes a braketest on each drive of the manipulator. This can only be done, if the robot is stopped. So, if you want to execute a braketest, ensure that the robot stands still.
 
-2. Run `roslaunch prbt_moveit_config moveit_planning_execution.launch sim:=false pipeline:=ompl`
-3. Use the moveit Motion Planning rviz plugin to plan and execute (see simulation section; set `Velocity Scaling` to 0.1 first)
+## ModbusAdapterOperationModeNode
+The ``ModbusAdapterOperationModeNode`` offers the `/get_operation_mode` service for accessing the active operation mode.
 
-Instead of OMPL use the motion planners of Pilz for executing industrial robot commands like PTP, LIN, etc. For this install the
-package [pilz_trajectory_generation](http://wiki.ros.org/pilz_trajectory_generation):
-```
-sudo apt install ros-kinetic-pilz-trajectory-generation
-or
-sudo apt install ros-melodic-pilz-trajectory-generation
-```
-
-then replace the pipeline in the above command by `pipeline:=pilz_command_planner`.
-
-### Adjust expert paramters
-If you've created an application package with your own launch file as described in the
-[tutorials](https://wiki.ros.org/pilz_robots/Tutorials/ModelYourApplicationWithPRBT#Create_your_application_ROS_package),
-you can easily adjust many other configuration parameters.
-See the template and comments in the [pilz_tutorials package](https://github.com/PilzDE/pilz_tutorials).
-
-### Running the prbt with a gripper
-Currently only the Schunk pg70 is supported. To run it, first install the package:
-```
-sudo apt install ros-kinetic-prbt-pg70-support
-or
-sudo apt install ros-melodic-prbt-pg70-support
-```
-
-then start the robot like before but with the `gripper:=pg70` set. Both simulation and real robot work.
-
-## Package: prbt_ikfast_manipulator_plugin
-The package contains a moveit plugin for inverse kinematics of the manipulator, which is a
-wrapper of `ikfast.cpp` to the kinematics base interface of moveit.
-
-## Package: pilz_control
-Contains a specialized version of `ros_controllers::JointTrajectoryController` which can be put into a holding mode.
-A controlled stop using a hold trajectory is performed thus stopping the manipulator without the mechanical stress of a hard brake.
-
-## Package: prbt_hardware_support
-This package provides support for the Pilz hardware PNOZmulti and PSS4000. A configurable modbus connection is set up via
-`roslaunch prbt_hardware_support modbus_client.launch`. Particular features (detailed description [here](prbt_hardware_support/README.md)):
-- Realization of the Stop1 functionality
-- Inform about the Safe Brake Control status
-- Trigger execution of brake test
-
-## Package: prbt_gazebo
-Provides a launch file to run the prbt manipulator inside gazebo.
-
-## You need further information?
-Our international hotline staff will support you individually about our ROS packages at
-ros@pilz.de
-
-Find more information about the Pilz manipulator module on the [product website](https://www.pilz.com/en-INT/eshop/00108002327111/PRBT-manipulator-modules).
-
-## Visit us at [pilz.com](https://www.pilz.com)
-Pilz is an international-scale, innovative automation technology company.
-Pilz uses its solutions to create safety for man, machine and the environment.
-In addition to head office in Ostfildern near Stuttgart,
-the family business is represented over 2,400
-employees at 42 subsidiaries and branches on all
-continents.
-
-The company’s products include sensor technology, electronic monitoring relays, safety
-relays, configurable and programmable control systems, automation solutions with motion
-control, systems for industrial communication as well as visualization solutions and
-operator terminals.
-
-Pilz solutions can be used in all areas of mechanical engineering, including the packaging
-and automotive sector, plus the railway technology, press and wind energy sectors.
-These solutions ensure that baggage handling systems run safely at airports and
-funiculars or roller coasters travel safely; they also guarantee fire protection and energy
-supply in buildings.
+Use `rosmsg show prbt_hardware_support/OperationModes` to see the definition of each value.
