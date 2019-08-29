@@ -2,6 +2,11 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.7 (2019-08-29)
+------------------
+* Add default modbus server ip for pss4000
+* Contributors: Pilz GmbH and Co. KG
+
 0.5.6 (2019-06-12)
 ------------------
 
