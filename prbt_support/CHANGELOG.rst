@@ -2,15 +2,26 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.4.9 (2019-06-19)
+0.5.7 (2019-08-29)
+------------------
+* Add default modbus server ip for pss4000
+* Contributors: Pilz GmbH and Co. KG
+
+0.5.6 (2019-06-12)
+------------------
+
+0.5.5 (2019-06-12)
+------------------
+
+0.5.4 (2019-05-27)
 ------------------
 * instantiate pg70 xacro macro (due to change in prbt_grippers)
 * Contributors: Pilz GmbH and Co. KG
 
-0.4.8 (2019-04-24)
+0.5.3 (2019-04-24)
 ------------------
 * Add acceptance test for joint position limits
-* Relax joint limits. 
+* Relax joint limits.
 * Replace the radian values for the position limits (they have been rounded too roughly).
 * Added support for force-/torque sensors in gazebo
 * allow gripper_name as outside property instead of passing it explicitly
@@ -22,21 +33,20 @@ Changelog for package prbt_support
 * Relax joint limits (recompute radian values and round up 5th decimal)
 * Contributors: Pilz GmbH and Co. KG
 
-0.4.7 (2019-02-15)
+0.5.2 (2019-02-21)
 ------------------
 * drop outdated can configuration
+* Fixup of mesh files due to errors in gazebo visualization
 * make robot.launch file configurable with args
 * Contributors: Pilz GmbH and Co. KG
 
-0.4.6 (2019-01-18)
+0.5.1 (2018-11-30)
 ------------------
+* melodic release based on kinetic version 0.4.3
+* Contributors: Pilz GmbH and Co. KG
 
-0.4.5 (2019-01-16)
+0.5.0 (2018-11-07)
 ------------------
-
-0.4.4 (2019-01-16)
-------------------
-* Fixup of mesh files due to errors in gazebo visualization
 
 0.4.3 (2018-11-30)
 ------------------

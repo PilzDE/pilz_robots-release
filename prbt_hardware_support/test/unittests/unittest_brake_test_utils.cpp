@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <mutex>
 #include <thread>
+#include <memory>
 
 #include <gtest/gtest.h>
 
@@ -64,6 +65,21 @@ static ::testing::AssertionResult compareJointStateMessages(const JointStateCons
 }
 
 /**
+ * @brief Test increases function coverage by ensuring that all Dtor variants
+ * are called.
+ */
+TEST(BrakeTestUtilsTest, testExceptionDtor)
+{
+  {
+    std::shared_ptr<BrakeTestUtilsException> ex {new BrakeTestUtilsException("Test msg")};
+  }
+
+  {
+    std::shared_ptr<GetCurrentJointStatesException> ex {new GetCurrentJointStatesException("Test msg")};
+  }
+}
+
+/**
  * Test the compareJointStatePositions utility function
  *
  * Test Sequence:
@@ -96,9 +112,9 @@ TEST(BrakeTestUtilsTest, testCompareJointStatePositions)
    * Step 2 *
    **********/
   double tolerance = 0.0001;
-  for (size_t i = 0; i < msg2->position.size(); ++i)
+  for (double & pos : msg2->position)
   {
-    msg2->position[i] += 0.9 * tolerance;
+    pos += 0.9 * tolerance;
   }
 
   EXPECT_TRUE(BrakeTestUtils::compareJointStatePositions(msg1, msg2, tolerance));
