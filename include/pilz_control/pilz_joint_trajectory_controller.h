@@ -26,8 +26,15 @@
 namespace pilz_joint_trajectory_controller
 {
 
+enum class Mode
+{
+  HOLD,
+  UNHOLD
+};
+
 /**
- * @class PilzJointTrajectoryController Specialized controller that can be triggered by a service to 
+ * @class PilzJointTrajectoryController
+ * @brief Specialized controller that can be triggered by a service to
  * move the robot to its hold position and refuse further trajectories.
  */
 template <class SegmentImpl, class HardwareInterface>
@@ -40,14 +47,24 @@ class PilzJointTrajectoryController
     typedef trajectory_msgs::JointTrajectory::ConstPtr                                          JointTrajectoryConstPtr;
     typedef realtime_tools::RealtimeServerGoalHandle<control_msgs::FollowJointTrajectoryAction> RealtimeGoalHandle;
     typedef boost::shared_ptr<RealtimeGoalHandle>                                               RealtimeGoalHandlePtr;
+    typedef joint_trajectory_controller::JointTrajectorySegment<SegmentImpl> Segment;
+    typedef std::vector<Segment> TrajectoryPerJoint;
+    typedef std::vector<TrajectoryPerJoint> Trajectory;
+    typedef std::shared_ptr<Trajectory> TrajectoryPtr;
 
     PilzJointTrajectoryController();
 
     bool init(HardwareInterface* hw, ros::NodeHandle& root_nh, ros::NodeHandle& controller_nh);
 
     /**
+     * @brief Returns true if the controller currently is executing a trajectory. False otherwise.
+     */
+    bool is_executing();
+
+    /**
      * @brief Service callback to force the controller into the hold position.
      *
+     * @param request Dummy for triggering the service
      * @param response True on success.
      *
      * @return False if something went wrong. True otherwise.
@@ -57,11 +74,22 @@ class PilzJointTrajectoryController
     /**
      * @brief Service callback to deactivate holding mode.
      *
+     * @param request Dummy for triggering the service
      * @param response True on success.
      *
      * @return False if something went wrong. True otherwise.
      */
     bool handleUnHoldRequest(std_srvs::TriggerRequest& request, std_srvs::TriggerResponse& response);
+
+    /**
+     * @brief Service callback for querying the controller activity.
+     *
+     * @param request Dummy for triggering the service
+     * @param response success: True if the controller is currently executing a trajectory. False otherwise.
+     *
+     * @return False if something went wrong. True otherwise.
+     */
+    bool handleIsExecutingRequest(std_srvs::TriggerRequest& request, std_srvs::TriggerResponse& response);
 
   protected:
     /**
@@ -86,12 +114,13 @@ class PilzJointTrajectoryController
     void triggerMovementToHoldPosition();
 
   private:
-    std::function<bool(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr, std::string*)> active_update_strategy_;
-
     ros::ServiceServer hold_position_service;
     ros::ServiceServer unhold_position_service;
+    ros::ServiceServer is_executing_service_;
 
     std_srvs::TriggerRequest last_request_;
+
+    Mode active_mode_ {Mode::HOLD};
 
     /**
      * @brief Synchronizes hold/unhold and update trajectory function to avoid
