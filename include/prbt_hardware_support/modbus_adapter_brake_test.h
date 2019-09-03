@@ -19,17 +19,13 @@
 #define MODBUS_ADAPTER_BRAKE_TEST_H
 
 #include <memory>
-#include <string>
 
 #include <ros/ros.h>
-#include <message_filters/subscriber.h>
 
 #include <prbt_hardware_support/adapter_brake_test.h>
-
-#include <prbt_hardware_support/brake_test_filter.h>
 #include <prbt_hardware_support/ModbusMsgInStamped.h>
-#include <prbt_hardware_support/update_filter.h>
-#include <prbt_hardware_support/modbus_msg_brake_test_wrapper.h>
+#include <prbt_hardware_support/modbus_api_spec.h>
+#include <prbt_hardware_support/filter_pipeline.h>
 
 namespace prbt_hardware_support
 {
@@ -42,26 +38,20 @@ class ModbusAdapterBrakeTest : public AdapterBrakeTest
 {
 public:
   ModbusAdapterBrakeTest(ros::NodeHandle& nh, const ModbusApiSpec& api_spec);
+  virtual ~ModbusAdapterBrakeTest() = default;
 
 private:
-  void modbusInMsgCallback(const ModbusMsgInStampedConstPtr& msg);
-  void internalMsgCallback(const ModbusMsgBrakeTestWrapper& msg);
+  /**
+   * @brief Called whenever a new modbus message arrives.
+   *
+   * @note Filters like for example the UpdateFilter can restrict
+   * the number of incoming messages.
+   */
+  void modbusMsgCallback(const ModbusMsgInStampedConstPtr& msg_raw);
 
 private:
-  //! Filters consecutive messages with the same timestamp.
-  //! Passed messages are redirected to the brake-test-filter.
-  std::shared_ptr< message_filters::UpdateFilter<ModbusMsgInStamped> > update_filter_;
-
-  //! Filters messages with a change in brake test state.
-  //! Passed messages are redirected to modbusInMsgCallback().
-  std::shared_ptr< message_filters::BrakeTestFilter<ModbusMsgInStamped> > brake_test_filter_;
-
-  //! Subscribes to TOPIC_MODBUS_READ and redirects received messages
-  //! to the update-filter.
-  std::shared_ptr< message_filters::Subscriber<ModbusMsgInStamped> > modbus_read_sub_;
-
-  //! Currently valid api_spec (defines modbus register semantic)
   const ModbusApiSpec api_spec_;
+  std::unique_ptr<FilterPipeline> filter_pipeline_;
 
 };
 
