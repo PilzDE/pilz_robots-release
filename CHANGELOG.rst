@@ -2,6 +2,11 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.10 (2019-09-03)
+-------------------
+* Add default modbus server ip for pss4000
+* Contributors: Pilz GmbH and Co. KG
+
 0.4.9 (2019-06-19)
 ------------------
 * instantiate pg70 xacro macro (due to change in prbt_grippers)
