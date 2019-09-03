@@ -1,1 +1,0 @@
-rosrun moveit_kinematics create_ikfast_moveit_plugin.py prbt manipulator prbt_ikfast_manipulator_plugin `rospack find prbt_ikfast_manipulator_plugin`/src/prbt_manipulator_ikfast_solver.cpp
