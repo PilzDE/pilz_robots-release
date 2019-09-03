@@ -2,6 +2,18 @@
 Changelog for package prbt_hardware_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.10 (2019-09-03)
+-------------------
+* Add state machine for STO handling to allow skipping of hold/unhold if needed
+* add operation mode functionality
+* add write capability to PilzModbusReadClient, rename PilzModbusReadClient -> PilzModbusClient
+* enter hold mode at braketest execution
+* automatically determine range for reading modbus registers
+* only read modbus registers that are explicitly configured (not in a single block)
+* separate api definitions for read and write
+* brake test result can be sent to FS controller
+* Contributors: Pilz GmbH and Co. KG
+
 0.4.9 (2019-06-19)
 ------------------
 * increased modbus response timeout to 20ms
