@@ -17,34 +17,57 @@
 
 #include <prbt_hardware_support/modbus_adapter_operation_mode.h>
 
-#include <prbt_hardware_support/modbus_topic_definitions.h>
-
+#include <sstream>
+#include <functional>
 
 namespace prbt_hardware_support
 {
 
-static constexpr int DEFAULT_QUEUE_SIZE_MODBUS {1};
+using std::placeholders::_1;
 
 ModbusAdapterOperationMode::ModbusAdapterOperationMode(ros::NodeHandle& nh, const ModbusApiSpec& api_spec)
-  : AdapterOperationMode(nh),
-    api_spec_(api_spec)
+  : AdapterOperationMode(nh)
+  , api_spec_(api_spec)
+  , filter_pipeline_(new FilterPipeline(nh, std::bind(&ModbusAdapterOperationMode::modbusMsgCallback, this, _1 )) )
 {
-  modbus_read_sub_ = std::make_shared< message_filters::Subscriber<ModbusMsgInStamped> >(nh, TOPIC_MODBUS_READ, DEFAULT_QUEUE_SIZE_MODBUS);
-  update_filter_ = std::make_shared< message_filters::UpdateFilter<ModbusMsgInStamped> >(*modbus_read_sub_);
-  operation_mode_filter_ = std::make_shared< message_filters::OperationModeFilter >(*update_filter_, api_spec_);
-	operation_mode_filter_->registerCallback(boost::bind(&ModbusAdapterOperationMode::modbusInMsgCallback, this, _1));
+
 }
 
-void ModbusAdapterOperationMode::internalMsgCallback(const ModbusMsgOperationModeWrapper& msg)
+void ModbusAdapterOperationMode::modbusMsgCallback(const ModbusMsgInStampedConstPtr& msg_raw)
 {
+  ModbusMsgOperationModeWrapper msg {msg_raw, api_spec_};
+
+  if (msg.isDisconnect())
+  {
+    updateOperationMode(OperationModes::UNKNOWN);
+    return;
+  }
+
+  try
+  {
+    msg.checkStructuralIntegrity();
+  }
+  catch (const prbt_hardware_support::ModbusMsgWrapperException &ex)
+  {
+    ROS_ERROR_STREAM(ex.what());
+    updateOperationMode(OperationModes::UNKNOWN);
+    return;
+  }
+
+  if(msg.getVersion() != MODBUS_API_VERSION_REQUIRED)
+  {
+    std::ostringstream os;
+    os << "Received Modbus message of unsupported API Version: "
+       << msg.getVersion()
+       << ", required Version: " << MODBUS_API_VERSION_REQUIRED;
+    os <<"\n";
+    os << "Can not determine OperationMode from Modbus message.";
+    ROS_ERROR_STREAM(os.str());
+    updateOperationMode(OperationModes::UNKNOWN);
+    return;
+  }
+
   updateOperationMode(msg.getOperationMode());
 }
 
-void ModbusAdapterOperationMode::modbusInMsgCallback(const ModbusMsgInStampedConstPtr& msg_raw)
-{
-	/* The ModbusMsgBrakeTestWrapperException will be handled in the BrakeTestFilter */
-	ModbusMsgOperationModeWrapper msg(msg_raw, api_spec_);
-	internalMsgCallback(msg);
-}
-
-}
+} // namespace prbt_hardware_support
