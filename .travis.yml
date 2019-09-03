@@ -14,7 +14,7 @@ notifications:
       - i.martini@pilz.de
 env:
   global:
-    - ROS_DISTRO="melodic"
+    - ROS_DISTRO="kinetic"
     - CATKIN_LINT=true
   matrix:
     - ROS_REPO=ros

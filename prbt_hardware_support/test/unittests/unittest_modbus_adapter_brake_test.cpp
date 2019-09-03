@@ -52,7 +52,7 @@ class ModbusAdapterBrakeTestTest : public testing::Test, public testing::AsyncTe
 {
 public:
   ModbusAdapterBrakeTestTest();
-  ~ModbusAdapterBrakeTestTest() override;
+  virtual ~ModbusAdapterBrakeTestTest();
 
 public:
   ModbusMsgInStampedPtr createDefaultBrakeTestModbusMsg(uint16_t brake_test_required_value,
