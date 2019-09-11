@@ -2,15 +2,15 @@
 Changelog for package prbt_hardware_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.5.8 (2019-09-10)
-------------------
+0.4.11 (2019-09-11)
+-------------------
 * add missing transition to STO state machine
 * revise STO specification
 * integrate clang-tidy via CMake flag
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.7 (2019-08-29)
-------------------
+0.4.10 (2019-09-03)
+-------------------
 * Add state machine for STO handling to allow skipping of hold/unhold if needed
 * add operation mode functionality
 * add write capability to PilzModbusReadClient, rename PilzModbusReadClient -> PilzModbusClient
@@ -21,44 +21,36 @@ Changelog for package prbt_hardware_support
 * brake test result can be sent to FS controller
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.6 (2019-06-12)
-------------------
-* Essentially reverts wrong fix (depend on canopen_chain_node) from 0.5.5
-
-0.5.5 (2019-06-12)
-------------------
-* Add missing depend (CATKIN_DEPENDS and <run_depend>) on canopen_chain_node
-
-0.5.4 (2019-05-27)
+0.4.9 (2019-06-19)
 ------------------
 * increased modbus response timeout to 20ms
 * publish brake test requests obtained from safety controller via modbus
 * sto_modbus_adapter waits for the services to appear instead of throwing exceptions
 * Add ability to execute a braketest on each drive.
-* Add service to access the active operation mode
 * Contributors: Pilz GmbH and Co. KG
 
 
-0.5.3 (2019-04-24)
+0.4.8 (2019-04-24)
 ------------------
 * cleanup CMakeLists of prbt_hardware_support
 * update the documentation
-* more precise error output when failing to read modbus register
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.2 (2019-02-21)
+0.4.7 (2019-02-15)
+------------------
+* drop outdated can configuration
+* Contributors: Pilz GmbH and Co. KG
+
+0.4.6 (2019-01-18)
 ------------------
 * Update used pipeline in test from command_planner to pilz_command_planner
+
+0.4.5 (2019-01-16)
+------------------
+
+0.4.4 (2019-01-16)
+------------------
 * Fix PilzModbusReadClient unittest
-* Contributors: Pilz GmbH and Co. KG
-
-0.5.1 (2018-11-30)
-------------------
-* melodic release based on kinetic version 0.4.3
-* Contributors: Pilz GmbH and Co. KG
-
-0.5.0 (2018-11-07)
-------------------
 
 0.4.3 (2018-11-30)
 ------------------
