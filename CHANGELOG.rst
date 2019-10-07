@@ -2,6 +2,17 @@
 Changelog for package prbt_hardware_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.9 (2019-10-07)
+------------------
+* Add service for getting the global speed override
+* Add modbus register for enabling temporary movement
+* Add Frame speed monitoring
+* Test fixes and improvements
+* Contributors: Pilz GmbH and Co. KG
+
+* Add speed observing dependent on operation mode
+* Contributors: Pilz GmbH and Co. KG
+
 0.5.8 (2019-09-10)
 ------------------
 * add missing transition to STO state machine
