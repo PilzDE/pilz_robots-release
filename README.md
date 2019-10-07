@@ -1,3 +1,34 @@
+## pilz_robots (melodic) - 0.5.9-1
+
+The packages in the `pilz_robots` repository were released into the `melodic` distro by running `/usr/bin/bloom-release pilz_robots --track melodic --rosdistro melodic --edit` on `Mon, 07 Oct 2019 16:00:58 -0000`
+
+These packages were released:
+- `pilz_control`
+- `pilz_robots`
+- `pilz_testutils`
+- `prbt_gazebo`
+- `prbt_hardware_support`
+- `prbt_ikfast_manipulator_plugin`
+- `prbt_moveit_config`
+- `prbt_support`
+
+Version of package(s) in repository `pilz_robots`:
+
+- upstream repository: https://github.com/PilzDE/pilz_robots.git
+- release repository: https://github.com/PilzDE/pilz_robots-release.git
+- rosdistro version: `0.5.8-1`
+- old version: `0.5.8-1`
+- new version: `0.5.9-1`
+
+Versions of tools used:
+
+- bloom version: `0.8.0`
+- catkin_pkg version: `0.4.13`
+- rosdep version: `0.15.2`
+- rosdistro version: `0.7.4`
+- vcstools version: `0.1.42`
+
+
 ## pilz_robots (kinetic) - 0.4.11-1
 
 The packages in the `pilz_robots` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release --rosdistro kinetic --track kinetic pilz_robots` on `Wed, 11 Sep 2019 11:33:22 -0000`
