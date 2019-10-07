@@ -85,7 +85,7 @@ The launch file allows to set optional parameters
 ### Running the simulation
 1. Run `roslaunch prbt_moveit_config moveit_planning_execution.launch sim:=true pipeline:=ompl`
 2. Use the moveit Motion Planning rviz plugin to plan and execute
-   (see e.g. [ROS-I training exercise 3.4](https://industrial-training-master.readthedocs.io/en/kinetic/_source/session3/Motion-Planning-RVIZ.html))
+   (see e.g. [ROS-I training exercise 3.4](https://industrial-training-master.readthedocs.io/en/melodic/_source/session3/Motion-Planning-RVIZ.html))
 
 ### Running on the real robot
 1. Bringup can: `sudo ip link set can0 up type can bitrate 1000000` (after every reboot or reconnect of the CAN hardware).
@@ -137,9 +137,9 @@ A controlled stop using a hold trajectory is performed thus stopping the manipul
 ## Package: prbt_hardware_support
 This package provides support for the Pilz hardware PNOZmulti and PSS4000. A configurable modbus connection is set up via
 `roslaunch prbt_hardware_support modbus_client.launch`. Particular features (detailed description [here](prbt_hardware_support/README.md)):
-- Realization of the Stop1 functionality
-- Inform about the Safe Brake Control status
-- Trigger execution of brake test
+- Stop1 functionality
+- Safe Brake Control functionality
+- Operation modes T1 (reduced speed) and AUTOMATIC
 
 ## Package: prbt_gazebo
 Provides a launch file to run the prbt manipulator inside gazebo.

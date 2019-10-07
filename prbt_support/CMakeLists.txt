@@ -68,4 +68,3 @@ if(CATKIN_ENABLE_TESTING)
   roslaunch_add_file_check(launch)
 
 endif()
-

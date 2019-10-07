@@ -26,15 +26,16 @@ namespace prbt_hardware_support
 {
 
 PilzModbusServerMock::PilzModbusServerMock(const unsigned int& holding_register_size)
-  : holding_register_size_(holding_register_size)
+  : holding_register_size_(holding_register_size + 1) // add one register for server shutdown signal
+  , terminate_register_idx_(holding_register_size)
 {
   // Create the needed mapping
   // Please note: Only the holding register is used.
   static constexpr unsigned BITS_NB                           {0x00};
   static constexpr unsigned INPUT_BITS_NB                     {0x00};
   static constexpr unsigned int INPUT_REGISTERS_NB            {0x0};
-  mb_mapping_ = modbus_mapping_new(BITS_NB, INPUT_BITS_NB, holding_register_size_, INPUT_REGISTERS_NB);
-  if (mb_mapping_ == NULL)
+  mb_mapping_ = modbus_mapping_new(BITS_NB, INPUT_BITS_NB, static_cast<int>(holding_register_size_), INPUT_REGISTERS_NB);
+  if (mb_mapping_ == nullptr)
   {
     ROS_ERROR_NAMED("ServerMock", "mb_mapping_ is NULL.");
     throw std::runtime_error("mb_mapping_ is NULL.");
@@ -55,7 +56,7 @@ PilzModbusServerMock::~PilzModbusServerMock()
 
 bool PilzModbusServerMock::init(const char *ip, unsigned int port)
 {
-  modbus_connection_ = modbus_new_tcp(ip, port);
+  modbus_connection_ = modbus_new_tcp(ip, static_cast<int>(port));
   if(modbus_connection_ == nullptr)
   {
     return false;
@@ -159,7 +160,7 @@ void PilzModbusServerMock::run()
   uint8_t query[MODBUS_TCP_MAX_ADU_LENGTH];
 
   // Connect to client loop
-  while (!terminate_)
+  while (!terminate_ && !shutdownSignalReceived())
   {
     ROS_DEBUG_NAMED("ServerMock", "About to start to listen for a modbus connection");
     socket_ = modbus_tcp_listen(modbus_connection_, 1);
@@ -184,7 +185,7 @@ void PilzModbusServerMock::run()
 
     // Loop for reading
     int rc {-1};
-    while (!terminate_)
+    while (!terminate_ && !shutdownSignalReceived())
     {
       rc = modbus_receive(modbus_connection_, query);
       if(rc > 0)
@@ -212,4 +213,4 @@ void PilzModbusServerMock::run()
 
 }
 
-}
+} // namespace prbt_hardware_support

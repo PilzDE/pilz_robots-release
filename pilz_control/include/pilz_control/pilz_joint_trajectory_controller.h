@@ -19,14 +19,18 @@
 
 #include <mutex>
 
-#include <boost/shared_ptr.hpp>
-
 #include <std_srvs/Trigger.h>
 
 #include <joint_trajectory_controller/joint_trajectory_controller.h>
 
 namespace pilz_joint_trajectory_controller
 {
+
+enum class Mode
+{
+  HOLD,
+  UNHOLD
+};
 
 /**
  * @class PilzJointTrajectoryController
@@ -46,7 +50,7 @@ class PilzJointTrajectoryController
     typedef joint_trajectory_controller::JointTrajectorySegment<SegmentImpl> Segment;
     typedef std::vector<Segment> TrajectoryPerJoint;
     typedef std::vector<TrajectoryPerJoint> Trajectory;
-    typedef boost::shared_ptr<Trajectory> TrajectoryPtr;
+    typedef std::shared_ptr<Trajectory> TrajectoryPtr;
 
     PilzJointTrajectoryController();
 
@@ -110,13 +114,13 @@ class PilzJointTrajectoryController
     void triggerMovementToHoldPosition();
 
   private:
-    std::function<bool(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr, std::string*)> active_update_strategy_;
-
     ros::ServiceServer hold_position_service;
     ros::ServiceServer unhold_position_service;
     ros::ServiceServer is_executing_service_;
 
     std_srvs::TriggerRequest last_request_;
+
+    Mode active_mode_ {Mode::HOLD};
 
     /**
      * @brief Synchronizes hold/unhold and update trajectory function to avoid
