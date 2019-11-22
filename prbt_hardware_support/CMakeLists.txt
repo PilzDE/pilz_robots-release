@@ -5,6 +5,7 @@ find_package(catkin REQUIRED COMPONENTS
   canopen_chain_node
   message_filters
   message_generation
+  pilz_utils
   roscpp
   std_msgs
   std_srvs
@@ -91,6 +92,7 @@ include_directories(
   test/include
 )
 include_directories(SYSTEM ${catkin_INCLUDE_DIRS}) #Must be declared SYSTEM to avoid Warnings from ros system includes
+include_directories(${pilz_utils_INCLUDE_DIRS})
 
 
 # MODBUS_ADAPTER_STO_NODE
@@ -348,16 +350,6 @@ if(CATKIN_ENABLE_TESTING)
   )
   #----------------------------------
 
-  # --- getParam unit test ---
-  add_rostest_gtest(unittest_get_param
-    test/unittests/unittest_get_param.test
-    test/unittests/unittest_get_param.cpp
-  )
-  target_link_libraries(unittest_get_param
-    ${catkin_LIBRARIES}
-  )
-  #----------------------------------
-
   # --- Stop1Executor unit test ---
   catkin_add_gmock(unittest_stop1_executor
     src/stop1_executor.cpp
@@ -392,6 +384,23 @@ if(CATKIN_ENABLE_TESTING)
     modbus
   )
   add_dependencies(integrationtest_stop1 ${catkin_EXPORTED_TARGETS})
+  #----------------------------------
+
+  # --- Stop1 missing service integration tests ---
+  add_rostest_gtest(integrationtest_stop1_service_missing
+     test/integrationtests/integrationtest_stop1_service_missing.test
+     test/integrationtests/integrationtest_stop1_service_missing.cpp
+  )
+  target_link_libraries(integrationtest_stop1_service_missing
+    ${catkin_LIBRARIES}
+  )
+  add_dependencies(integrationtest_stop1_service_missing ${catkin_EXPORTED_TARGETS})
+
+  foreach(service_name halt hold unhold)
+    add_rostest(test/integrationtests/integrationtest_stop1_service_missing.test
+      ARGS omit_service:=${service_name}
+      DEPENDENCIES integrationtest_stop1_service_missing)
+  endforeach(service_name)
   #----------------------------------
 
   # --- Brake test required integration test ---
