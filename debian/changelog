@@ -1,8 +1,0 @@
-ros-melodic-pilz-utils (0.5.11-1stretch) stretch; urgency=high
-
-  * Provide utility functions waitForService, waitForTopic and getParam
-  * Contributors: Pilz GmbH and Co. KG
-
- -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Thu, 21 Nov 2019 23:00:00 -0000
-
-
