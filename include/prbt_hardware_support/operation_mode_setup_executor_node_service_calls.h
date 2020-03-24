@@ -15,35 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef WAIT_FOR_SERVICE_H
-#define WAIT_FOR_SERVICE_H
-
-#include <string>
+#ifndef OPERATION_MODE_SETUP_EXECUTOR_NODE_SERVICE_CALLS_H
+#define OPERATION_MODE_SETUP_EXECUTOR_NODE_SERVICE_CALLS_H
 
 #include <ros/ros.h>
-#include <ros/duration.h>
 
-#include <prbt_hardware_support/wait_for_timeouts.h>
+#include <prbt_hardware_support/GetOperationMode.h>
+#include <prbt_hardware_support/SetSpeedLimit.h>
 
 namespace prbt_hardware_support
 {
 
-/**
- * @brief Waits until the specified service starts.
- */
-static void waitForService(const std::string service_name,
-                    const double retry_timeout = DEFAULT_RETRY_TIMEOUT,
-                    const double msg_output_period = DEFAULT_MSG_OUTPUT_PERIOD)
+template<class T>
+static bool setSpeedLimitSrv(T& srv_client, const double& speed_limit)
 {
-  while (!ros::service::waitForService(service_name, ros::Duration(retry_timeout)) && ros::ok())
+  SetSpeedLimit srv_msg;
+  srv_msg.request.speed_limit = speed_limit;
+  bool call_success = srv_client.call(srv_msg);
+  if (!call_success)
   {
-    ROS_WARN_STREAM_DELAYED_THROTTLE(msg_output_period,
-                                     "Waiting for service \""
-                                     + service_name + "\"...");
+    ROS_ERROR_STREAM("No success calling service: " << srv_client.getService());
   }
+  return call_success;
 }
 
+} // namespace prbt_hardware_support
 
-}
-
-#endif // WAIT_FOR_SERVICE_H
+#endif // OPERATION_MODE_SETUP_EXECUTOR_NODE_SERVICE_CALLS_H
