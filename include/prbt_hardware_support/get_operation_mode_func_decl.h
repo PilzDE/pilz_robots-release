@@ -15,15 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef WAIT_FOR_TIMEOUTS_H
-#define WAIT_FOR_TIMEOUTS_H
+#ifndef GET_OPERATION_MODE_FUNC_DECL_H
+#define GET_OPERATION_MODE_FUNC_DECL_H
+
+#include <functional>
+#include <prbt_hardware_support/OperationModes.h>
 
 namespace prbt_hardware_support
 {
 
-static constexpr double DEFAULT_RETRY_TIMEOUT {0.2};
-static constexpr double DEFAULT_MSG_OUTPUT_PERIOD {5.0};
+using GetOpModeFunc = std::function<OperationModes()>;
 
 }
 
-#endif // WAIT_FOR_TIMEOUTS_H
+#endif // GET_OPERATION_MODE_FUNC_DECL_H
