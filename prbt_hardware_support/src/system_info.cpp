@@ -20,8 +20,8 @@
 #include <XmlRpcException.h>
 #include <sensor_msgs/JointState.h>
 
-#include <prbt_hardware_support/wait_for_service.h>
-#include <prbt_hardware_support/wait_for_topic.h>
+#include <pilz_utils/wait_for_service.h>
+#include <pilz_utils/wait_for_message.h>
 #include <canopen_chain_node/GetObject.h>
 #include <prbt_hardware_support/system_info_exception.h>
 
@@ -34,15 +34,19 @@ static const std::string JOINT_STATE_TOPIC {"/joint_states"};
 
 static const std::string GET_FIRMWARE_VERION_OBJECT{"100A"};
 
+// Currently the string is defined to be 41 characters long, but the last character can be omitted.
+// This is currently under investigation. See https://github.com/PilzDE/pilz_robots/issues/299.
+static constexpr std::size_t FIRMWARE_STRING_LENGTH{40};
+
 SystemInfo::SystemInfo(ros::NodeHandle &nh)
     : joint_names_( getNodeNames(nh) )
 {
   // Wait till CAN is up and running.
   // Reason: If the first CAN service call happens before
   // the CAN is fully initialized, the CAN will not start properly.
-  waitForTopic<sensor_msgs::JointState>(JOINT_STATE_TOPIC);
+  pilz_utils::waitForMessage<sensor_msgs::JointState>(JOINT_STATE_TOPIC);
 
-  waitForService(CANOPEN_GETOBJECT_SERVICE_NAME);
+  pilz_utils::waitForService(CANOPEN_GETOBJECT_SERVICE_NAME);
   canopen_srv_get_client_ = nh.serviceClient<canopen_chain_node::GetObject>(CANOPEN_GETOBJECT_SERVICE_NAME);
 }
 
@@ -63,6 +67,9 @@ std::string SystemInfo::getFirmwareVersionOfJoint(const std::string& joint_name)
   {
     throw SystemInfoException(srv.response.message);
   }
+
+  srv.response.value.resize(FIRMWARE_STRING_LENGTH);
+
   return srv.response.value;
 }
 
