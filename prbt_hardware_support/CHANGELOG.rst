@@ -2,6 +2,19 @@
 Changelog for package prbt_hardware_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.12 (2020-03-24)
+-------------------
+* Trim firmware string.
+* Rename waitForTopic() -> waitForMessage()
+* Add Status Indicator that shows operation mode, speed override, HW status and ROS status
+* Add missing dependency on tf2_geometry_msgs (`#264 <https://github.com/PilzDE/pilz_robots/issues/264>`_)
+* Add service for getting the global speed override
+* Add modbus register for enabling temporary movement
+* Add Frame speed monitoring
+* Test fixes and improvements
+* Add speed observing dependent on operation mode
+* Contributors: Pilz GmbH and Co. KG
+
 0.4.11 (2019-09-11)
 -------------------
 * add missing transition to STO state machine
