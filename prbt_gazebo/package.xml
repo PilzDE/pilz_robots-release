@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>prbt_gazebo</name>
-  <version>0.5.14</version>
+  <version>0.4.12</version>
   <description>Launch prbt robot in an empty Gazebo world.</description>
 
   <maintainer email="a.gutenkunst@pilz.de">Alexander Gutenkunst</maintainer>
@@ -16,7 +16,6 @@
   <url type="repository">https://github.com/PilzDE/pilz_robots</url>
 
   <buildtool_depend>catkin</buildtool_depend>
-
 
   <exec_depend>xacro</exec_depend>
   <exec_depend>roslaunch</exec_depend>

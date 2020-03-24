@@ -74,8 +74,8 @@ class Stop1IntegrationTest : public testing::Test, public testing::AsyncTest
 {
 
 public:
-  void SetUp() override;
-  void TearDown() override;
+  void SetUp();
+  void TearDown();
 
 public:
   bool serviceCallStub (const std::string& barrier_name,
@@ -267,8 +267,8 @@ int main(int argc, char *argv[])
   ros::init(argc, argv, "integrationtest_stop1");
   ros::NodeHandle nh;
 
-  ros::AsyncSpinner spinner{1};
-  spinner.start();
+  ros::AsyncSpinner spinner_{1};
+  spinner_.start();
 
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

@@ -2,46 +2,23 @@
 Changelog for package prbt_moveit_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.5.14 (2020-03-11)
+0.4.12 (2020-03-24)
 -------------------
 * add pipeline for merging the planner into moveit (old pipeline still available)
-* Contributors: Pilz GmbH and Co. KG
-
-0.5.13 (2019-12-04)
--------------------
-
-0.5.12 (2019-11-28)
--------------------
 * Fake speed override in case of sim:=true
-* Contributors: Pilz GmbH and Co. KG
-
-0.5.11 (2019-11-22)
--------------------
-
-0.5.10 (2019-10-08)
--------------------
-
-0.5.9 (2019-10-07)
-------------------
 * Fix warning by change parent and child of fixed frame
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.8 (2019-09-10)
+0.4.11 (2019-09-11)
+-------------------
+
+0.4.10 (2019-09-03)
+-------------------
+
+0.4.9 (2019-06-19)
 ------------------
 
-0.5.7 (2019-08-29)
-------------------
-
-0.5.6 (2019-06-12)
-------------------
-
-0.5.5 (2019-06-12)
-------------------
-
-0.5.4 (2019-05-27)
-------------------
-
-0.5.3 (2019-04-24)
+0.4.8 (2019-04-24)
 ------------------
 * Set interactive marker size in RViz config
 * Remove unnecessary file test_context.launch
@@ -49,21 +26,22 @@ Changelog for package prbt_moveit_config
 * update the documentation
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.2 (2019-02-21)
+0.4.7 (2019-02-15)
 ------------------
 * Remove exec_depend on metapackages
+* Contributors: Pilz GmbH and Co. KG
+
+0.4.6 (2019-01-18)
+------------------
 * Rename command_planner to pilz_command_planner
+
+0.4.5 (2019-01-16)
+------------------
+
+0.4.4 (2019-01-16)
+------------------
 * Set default pipeline to ompl. To run with the specified
   run_depends we cannot default to command_planner.
-* Contributors: Pilz GmbH and Co. KG
-
-0.5.1 (2018-11-30)
-------------------
-* melodic release based on kinetic version 0.4.3
-* Contributors: Pilz GmbH and Co. KG
-
-0.5.0 (2018-11-07)
-------------------
 
 0.4.3 (2018-11-30)
 ------------------

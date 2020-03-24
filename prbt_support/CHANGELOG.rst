@@ -2,50 +2,27 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.5.14 (2020-03-11)
+0.4.12 (2020-03-24)
 -------------------
-
-0.5.13 (2019-12-04)
--------------------
-
-0.5.12 (2019-11-28)
--------------------
-
-0.5.11 (2019-11-22)
--------------------
-* Fix clang compiler errors (#283)
-* Contributors: Pilz GmbH and Co. KG
-
-0.5.10 (2019-10-08)
--------------------
-
-0.5.9 (2019-10-07)
-------------------
+* Fake speed override in case of sim:=true
 * Add frame speed monitoring
-* Contributors: Pilz GmbH and Co. KG
-
-0.5.8 (2019-09-10)
-------------------
 * integrate clang-tidy via CMake flag
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.7 (2019-08-29)
-------------------
+0.4.11 (2019-09-11)
+-------------------
+
+0.4.10 (2019-09-03)
+-------------------
 * Add default modbus server ip for pss4000
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.6 (2019-06-12)
-------------------
-
-0.5.5 (2019-06-12)
-------------------
-
-0.5.4 (2019-05-27)
+0.4.9 (2019-06-19)
 ------------------
 * instantiate pg70 xacro macro (due to change in prbt_grippers)
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.3 (2019-04-24)
+0.4.8 (2019-04-24)
 ------------------
 * Add acceptance test for joint position limits
 * Relax joint limits.
@@ -60,20 +37,21 @@ Changelog for package prbt_support
 * Relax joint limits (recompute radian values and round up 5th decimal)
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.2 (2019-02-21)
+0.4.7 (2019-02-15)
 ------------------
 * drop outdated can configuration
-* Fixup of mesh files due to errors in gazebo visualization
 * make robot.launch file configurable with args
 * Contributors: Pilz GmbH and Co. KG
 
-0.5.1 (2018-11-30)
+0.4.6 (2019-01-18)
 ------------------
-* melodic release based on kinetic version 0.4.3
-* Contributors: Pilz GmbH and Co. KG
 
-0.5.0 (2018-11-07)
+0.4.5 (2019-01-16)
 ------------------
+
+0.4.4 (2019-01-16)
+------------------
+* Fixup of mesh files due to errors in gazebo visualization
 
 0.4.3 (2018-11-30)
 ------------------

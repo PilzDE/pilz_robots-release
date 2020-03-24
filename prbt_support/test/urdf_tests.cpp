@@ -32,7 +32,7 @@ static constexpr double L0 {0.2604}; // Height of foot
 static constexpr double L1 {0.3500}; // Height of first connector
 static constexpr double L2 {0.3070}; // Height of second connector
 static constexpr double L3 {0.0840}; // Distance last joint to flange
-static constexpr double DELTA {1.0e-10};
+static constexpr double delta {1.0e-10};
 
 const std::string PARAM_MODEL {"robot_description"};
 
@@ -60,7 +60,7 @@ std::string vecToString(std::vector<double>& vec) {
 class URDFKinematicsTest : public testing::TestWithParam<std::string>
 {
 protected:
-   void SetUp() override;
+   virtual void SetUp();
 
 protected:
   // ros stuff
@@ -95,7 +95,7 @@ void URDFKinematicsTest::SetUp()
   testDataSet_.push_back(TestDataPoint("TestPos10", {      0,       0,       0,  0,       0,  M_PI_2}, Eigen::Vector3d(0,    0, L0+L1+L2+L3)));
 }
 
-INSTANTIATE_TEST_CASE_P(InstantiationName, URDFKinematicsTest, ::testing::Values(PARAM_MODEL), );
+INSTANTIATE_TEST_CASE_P(InstantiationName, URDFKinematicsTest, ::testing::Values(PARAM_MODEL) );
 /**
  * \brief test the kinematics of urdf model
  *
@@ -110,11 +110,11 @@ TEST_P(URDFKinematicsTest, forwardKinematics)
   ASSERT_TRUE(rstate.knowsFrameTransform(tip_link_name_));
 
   // Loop over the testdata
-  for(TestDataPoint & test_data : testDataSet_)
+  for(TestDataPoint & testData : testDataSet_)
   {
-    std::string name = getName(test_data);
-    std::vector<double> joints = getJoints(test_data);
-    Eigen::Vector3d pos_exp = getPos(test_data);
+    std::string name = getName(testData);
+    std::vector<double> joints = getJoints(testData);
+    Eigen::Vector3d posExp = getPos(testData);
 
     // get frame transform
     rstate.setJointGroupPositions(group_name_, joints);
@@ -123,11 +123,11 @@ TEST_P(URDFKinematicsTest, forwardKinematics)
     Eigen::Affine3d transform = rstate.getFrameTransform(tip_link_name_);
 
     // Test the position
-    double error_norm = (transform.translation() - pos_exp).norm();
-    EXPECT_NEAR(error_norm, 0, DELTA)
+    double error_norm = (transform.translation() - posExp).norm();
+    EXPECT_NEAR(error_norm, 0, delta)
         << "TestPosition \"" << name << "\" failed\n"
         << "\t Joints: [" << Eigen::VectorXd::Map(joints.data(), joints.size()).transpose() << "]\n"
-        << "\t Expected position [" << pos_exp.transpose() << "]\n"
+        << "\t Expected position [" << posExp.transpose() << "]\n"
         << "\t Real position [" << transform.translation().transpose() << "]";
   }
 }

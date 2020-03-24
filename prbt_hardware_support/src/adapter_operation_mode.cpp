@@ -64,7 +64,7 @@ void AdapterOperationMode::updateOperationMode(const OperationModes& new_op_mode
   }
 }
 
-bool AdapterOperationMode::getOperationMode(GetOperationMode::Request& /*req*/,
+bool AdapterOperationMode::getOperationMode(GetOperationMode::Request&,
                                             GetOperationMode::Response& res)
 {
   std::lock_guard<std::mutex> lock(op_mode_mutex_);

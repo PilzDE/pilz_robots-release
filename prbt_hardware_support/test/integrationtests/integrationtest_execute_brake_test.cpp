@@ -19,8 +19,7 @@
 
 #include <ros/ros.h>
 
-#include <pilz_msgs/BrakeTest.h>
-
+#include <prbt_hardware_support/BrakeTest.h>
 #include <prbt_hardware_support/WriteModbusRegister.h>
 #include <prbt_hardware_support/canopen_chain_node_mock.h>
 #include <prbt_hardware_support/joint_states_publisher_mock.h>
@@ -124,14 +123,14 @@ TEST(IntegrationtestExecuteBrakeTest, testBrakeTestService)
   /**********
    * Step 3 *
    **********/
-  ros::ServiceClient brake_test_srv_client = nh.serviceClient<pilz_msgs::BrakeTest>(EXECUTE_BRAKE_TEST_SERVICE_NAME);
-  EXPECT_TRUE(brake_test_srv_client.waitForExistence(ros::Duration(WAIT_FOR_BRAKE_TEST_SERVICE_TIMEOUT_S)));
+  ros::ServiceClient brake_test_srv_client_ = nh.serviceClient<BrakeTest>(EXECUTE_BRAKE_TEST_SERVICE_NAME);
+  EXPECT_TRUE(brake_test_srv_client_.waitForExistence(ros::Duration(WAIT_FOR_BRAKE_TEST_SERVICE_TIMEOUT_S)));
 
   /**********
    * Step 4 *
    **********/
-  pilz_msgs::BrakeTest srv;
-  EXPECT_TRUE(brake_test_srv_client.call(srv));
+  BrakeTest srv;
+  EXPECT_TRUE(brake_test_srv_client_.call(srv));
 
   /**********
    * Step 5 *

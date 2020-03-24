@@ -23,6 +23,7 @@
 #include <ros/ros.h>
 
 #include <prbt_hardware_support/GetOperationMode.h>
+#include <prbt_hardware_support/IsBrakeTestRequired.h>
 #include <prbt_hardware_support/OperationModes.h>
 
 namespace prbt_hardware_support
@@ -49,8 +50,8 @@ private:
    */
   void initOperationModeService();
 
-  bool getOperationMode(GetOperationMode::Request& req,
-                        GetOperationMode::Response& res);
+  bool getOperationMode(GetOperationMode::Request&,
+                        GetOperationMode::Response& response);
 
 private:
   //! Store the current operation mode according to OperationModes.msg

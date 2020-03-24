@@ -1,9 +1,6 @@
-cmake_minimum_required(VERSION 3.1.3)
+cmake_minimum_required(VERSION 2.8.12)
 project(prbt_ikfast_manipulator_plugin)
-
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
+add_compile_options(-std=c++11)
 add_compile_options(-Wall)
 add_compile_options(-Wextra)
 add_compile_options(-Wno-unused-parameter)
@@ -11,10 +8,10 @@ add_compile_options(-Wno-unused-variable)
 add_compile_options(-Werror)
 
 # enable aligned new in gcc7+
-if(CMAKE_COMPILER_IS_GNUCXX)
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
+if(CMAKE_COMPILER_IS_GNUCXX) 
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0) 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -faligned-new")
-  endif()
+  endif() 
 endif()
 
 find_package(catkin REQUIRED COMPONENTS
@@ -22,19 +19,27 @@ find_package(catkin REQUIRED COMPONENTS
   pluginlib
   roscpp
   tf2_kdl
-  tf2_eigen
-  eigen_conversions
 )
 
-include_directories(${catkin_INCLUDE_DIRS} include)
+include_directories(${catkin_INCLUDE_DIRS})
 
-catkin_package()
+catkin_package(
+  LIBRARIES
+  CATKIN_DEPENDS
+    moveit_core
+    pluginlib
+    roscpp
+    tf2_kdl
+)
+
+include_directories(include)
 
 set(IKFAST_LIBRARY_NAME prbt_manipulator_moveit_ikfast_plugin)
+
+find_package(LAPACK REQUIRED)
+
 add_library(${IKFAST_LIBRARY_NAME} src/prbt_manipulator_ikfast_moveit_plugin.cpp)
-target_link_libraries(${IKFAST_LIBRARY_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-# suppress warnings about unused variables in OpenRave's solver code
-target_compile_options(${IKFAST_LIBRARY_NAME} PRIVATE -Wno-unused-variable)
+target_link_libraries(${IKFAST_LIBRARY_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${LAPACK_LIBRARIES})
 
 ################
 ## Clang tidy ##
@@ -55,9 +60,7 @@ endif()
 
 install(TARGETS
   ${IKFAST_LIBRARY_NAME}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
 install(
   FILES
@@ -76,19 +79,15 @@ if(CATKIN_ENABLE_TESTING)
     APPEND_COVERAGE_COMPILER_FLAGS()
   endif()
 
-  find_package(moveit_ros_planning REQUIRED)
 
   include_directories(include ${catkin_INCLUDE_DIR})
 
-  add_rostest_gtest(unittest_${PROJECT_NAME}
-    test/unittests/tst_${PROJECT_NAME}.test
-    test/unittests/tst_${PROJECT_NAME}.cpp
+  add_rostest_gtest(unittest_prbt_ikfast_manipulator_plugin
+    test/unittests/tst_prbt_ikfast_manipulator_plugin.test
+    test/unittests/tst_prbt_ikfast_manipulator_plugin.cpp
   )
 
-  target_link_libraries(unittest_${PROJECT_NAME}
-    ${catkin_LIBRARIES}
-    ${moveit_ros_planning_LIBRARIES}
-  )
+  target_link_libraries(unittest_prbt_ikfast_manipulator_plugin ${catkin_LIBRARIES})
 
   # run: catkin_make -DENABLE_COVERAGE_TESTING=ON package_name_coverage
   if(ENABLE_COVERAGE_TESTING)

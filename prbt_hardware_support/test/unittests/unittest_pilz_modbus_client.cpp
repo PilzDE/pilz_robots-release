@@ -122,14 +122,14 @@ void PilzModbusClientExecutor::stop()
 class PilzModbusClientTests : public testing::Test, public testing::AsyncTest
 {
 public:
-  void SetUp() override;
+  virtual void SetUp();
 
 protected:
   ros::Subscriber subscriber_;
   ros::AsyncSpinner spinner_{2};
   ros::NodeHandle nh_;
 
-  MOCK_METHOD1(modbus_read_cb,  void(const ModbusMsgInStampedConstPtr& msg));
+  MOCK_METHOD1(modbus_read_cb,  void(ModbusMsgInStamped msg));
 
 };
 
@@ -139,8 +139,8 @@ void PilzModbusClientTests::SetUp()
   spinner_.start();
 }
 
-MATCHER_P(IsSuccessfullRead, vec, "") { return arg->holding_registers.data == vec; }
-MATCHER(IsDisconnect, "") { return arg->disconnect.data; }
+MATCHER_P(IsSuccessfullRead, vec, "") { return arg.holding_registers.data == vec; }
+MATCHER(IsDisconnect, "") { return arg.disconnect.data; }
 
 
 /**
@@ -423,10 +423,10 @@ private:
 class RegisterBuffer
 {
 public:
-  void add(const ModbusMsgInStampedConstPtr& msg)
+  void add(ModbusMsgInStamped msg)
   {
     std::unique_lock<std::mutex> lk(m_);
-    buffer_ = msg->holding_registers.data.at(0);
+    buffer_ = msg.holding_registers.data.at(0);
   }
 
   uint16_t get()
@@ -577,18 +577,18 @@ TEST_F(PilzModbusClientTests, testWritingOfHoldingRegister)
 TEST_F(PilzModbusClientTests, testSplitIntoBlocksFcn){
   // lists with same elements will throw exception
   std::vector<unsigned short> in_throw = {1, 2, 1};
-  ASSERT_THROW(PilzModbusClient::splitIntoBlocks(in_throw),
+  ASSERT_THROW(PilzModbusClient::split_into_blocks(in_throw),
                PilzModbusClientException);
 
   // properly splitting into blocks
   std::vector<unsigned short> in_split = {1, 2, 4, 5};
-  std::vector<std::vector<unsigned short>> out_split = PilzModbusClient::splitIntoBlocks(in_split);
+  std::vector<std::vector<unsigned short>> out_split = PilzModbusClient::split_into_blocks(in_split);
   std::vector<std::vector<unsigned short>> expected_out_split = {{1, 2}, {4, 5}};
   EXPECT_EQ(out_split, expected_out_split);
 
   // not splitting already consecutive blocks
   std::vector<unsigned short> in_nosplit = {1, 2, 3};
-  std::vector<std::vector<unsigned short>> out_nosplit = PilzModbusClient::splitIntoBlocks(in_nosplit);
+  std::vector<std::vector<unsigned short>> out_nosplit = PilzModbusClient::split_into_blocks(in_nosplit);
   std::vector<std::vector<unsigned short>> expected_out_nosplit = {{1, 2, 3}};
   EXPECT_EQ(out_nosplit, expected_out_nosplit);
 }
