@@ -76,7 +76,10 @@
       <arg name="write_api_spec_file" value="$(arg write_api_spec_file)" />
     </include>
 
-    <include if="$(arg has_operation_mode_support)" file="$(find prbt_hardware_support)/launch/operation_mode_adapter.launch" />
+    <include if="$(arg has_operation_mode_support)" file="$(find prbt_hardware_support)/launch/operation_mode.launch" />
+    <group unless="$(arg has_operation_mode_support)">
+      <node name="fake_speed_override_node" pkg="prbt_hardware_support" type="fake_speed_override_node"/>
+    </group>
   </group>
 
   <group if="$(eval sto.lower() == 'none')" >
