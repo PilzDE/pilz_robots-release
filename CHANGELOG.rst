@@ -2,10 +2,15 @@
 Changelog for package prbt_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.4.11 (2019-09-11)
+0.4.12 (2020-03-24)
 -------------------
+* Fake speed override in case of sim:=true
+* Add frame speed monitoring
 * integrate clang-tidy via CMake flag
 * Contributors: Pilz GmbH and Co. KG
+
+0.4.11 (2019-09-11)
+-------------------
 
 0.4.10 (2019-09-03)
 -------------------
@@ -20,7 +25,7 @@ Changelog for package prbt_support
 0.4.8 (2019-04-24)
 ------------------
 * Add acceptance test for joint position limits
-* Relax joint limits. 
+* Relax joint limits.
 * Replace the radian values for the position limits (they have been rounded too roughly).
 * Added support for force-/torque sensors in gazebo
 * allow gripper_name as outside property instead of passing it explicitly
