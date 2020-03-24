@@ -31,7 +31,6 @@
 #include <prbt_hardware_support/modbus_msg_in_builder.h>
 #include <prbt_hardware_support/modbus_adapter_sto.h>
 #include <prbt_hardware_support/register_container.h>
-#include <prbt_hardware_support/wait_for_topic.h>
 
 namespace prbt_hardware_support
 {

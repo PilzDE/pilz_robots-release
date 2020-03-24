@@ -28,6 +28,12 @@
 namespace pilz_joint_trajectory_controller
 {
 
+enum class Mode
+{
+  HOLD,
+  UNHOLD
+};
+
 /**
  * @class PilzJointTrajectoryController
  * @brief Specialized controller that can be triggered by a service to
@@ -50,7 +56,7 @@ class PilzJointTrajectoryController
 
     PilzJointTrajectoryController();
 
-    bool init(HardwareInterface* hw, ros::NodeHandle& root_nh, ros::NodeHandle& controller_nh);
+    bool init(HardwareInterface* hw, ros::NodeHandle& root_nh, ros::NodeHandle& controller_nh) override;
 
     /**
      * @brief Returns true if the controller currently is executing a trajectory. False otherwise.
@@ -110,13 +116,13 @@ class PilzJointTrajectoryController
     void triggerMovementToHoldPosition();
 
   private:
-    std::function<bool(const JointTrajectoryConstPtr&, RealtimeGoalHandlePtr, std::string*)> active_update_strategy_;
-
     ros::ServiceServer hold_position_service;
     ros::ServiceServer unhold_position_service;
     ros::ServiceServer is_executing_service_;
 
     std_srvs::TriggerRequest last_request_;
+
+    Mode active_mode_ {Mode::HOLD};
 
     /**
      * @brief Synchronizes hold/unhold and update trajectory function to avoid

@@ -2,6 +2,10 @@
 Changelog for package pilz_robots
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.12 (2020-03-24)
+-------------------
+* Add dependencies to meta-package package.xml
+
 0.4.11 (2019-09-11)
 -------------------
 
