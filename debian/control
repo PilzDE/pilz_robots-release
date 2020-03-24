@@ -1,0 +1,12 @@
+Source: ros-kinetic-pilz-status-indicator-rqt
+Section: misc
+Priority: optional
+Maintainer: Alexander Gutenkunst <a.gutenkunst@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), python-mock, ros-kinetic-catkin, ros-kinetic-rospy, ros-kinetic-rostest, ros-kinetic-rosunit, ros-kinetic-rqt-gui, ros-kinetic-rqt-gui-py
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-pilz-status-indicator-rqt
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-prbt-hardware-support, ros-kinetic-rospy, ros-kinetic-rqt-gui, ros-kinetic-rqt-gui-py, ros-kinetic-std-msgs
+Description: Showing information about operation mode, status and speed override of the robot.

@@ -1,0 +1,8 @@
+ros-kinetic-pilz-status-indicator-rqt (0.4.12-1xenial) xenial; urgency=high
+
+  * Adds basic view for operation_mode, status, speed
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Mon, 23 Mar 2020 23:00:00 -0000
+
+
