@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Pilz GmbH & Co. KG
+ * Copyright (c) 2020 Pilz GmbH & Co. KG
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,28 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <ros/ros.h>
-#include <prbt_hardware_support/system_info.h>
+#include <prbt_hardware_support/modbus_msg_run_permitted_wrapper.h>
+
+#include <prbt_hardware_support/ModbusMsgInStamped.h>
+#include <prbt_hardware_support/modbus_api_spec.h>
 
 using namespace prbt_hardware_support;
 
-/**
- * @brief Logs important system information.
- */
-// LCOV_EXCL_START
-int main(int argc, char **argv)
+ModbusMsgRunPermittedWrapper::ModbusMsgRunPermittedWrapper(const ModbusMsgInStampedConstPtr& modbus_msg_raw,
+                                                           const ModbusApiSpec& api_spec):
+  ModbusMsgWrapper(modbus_msg_raw, api_spec)
 {
-  ros::init(argc, argv, "system_info");
-  ros::NodeHandle nh{"~"};
-
-  prbt_hardware_support::SystemInfo system_info(nh);
-  FirmwareCont versions {system_info.getFirmwareVersions()};
-  for (const auto& curr_elem : versions)
-  {
-    ROS_INFO("Firmware version [%s]: %s",
-             curr_elem.first.c_str(),
-             curr_elem.second.c_str());
-  }
-  return EXIT_SUCCESS;
 }
-// LCOV_EXCL_STOP
+
+void ModbusMsgRunPermittedWrapper::checkStructuralIntegrity() const
+{
+  ModbusMsgWrapper::checkStructuralIntegrity();
+
+  if(!hasRunPermitted())
+  {
+    throw ModbusMsgRunPermittedStatusMissing("Received message does not contain a RUN_PERMITTED status.");
+  }
+}
