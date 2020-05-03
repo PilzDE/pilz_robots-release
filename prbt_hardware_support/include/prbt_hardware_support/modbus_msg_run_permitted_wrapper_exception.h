@@ -15,14 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <prbt_hardware_support/system_info_exception.h>
+#ifndef MODBUS_MSG_RUN_PERMITTED_WRAPPER_EXCEPTION_H
+#define MODBUS_MSG_RUN_PERMITTED_WRAPPER_EXCEPTION_H
+
+#include <string>
+#include <stdexcept>
+
+#include <prbt_hardware_support/modbus_msg_wrapper_exception.h>
 
 namespace prbt_hardware_support
 {
+  /**
+   * @brief Expection thrown upon construction of ModbusMsgRunPermittedWrapper if the message
+   * does not contain the required information.
+   *
+   */
+  class ModbusMsgRunPermittedStatusMissing : public ModbusMsgWrapperException
+  {
+    public:
+      ModbusMsgRunPermittedStatusMissing( const std::string& what_arg ):
+        ModbusMsgWrapperException(what_arg)
+      {
+      }
+  };
 
-SystemInfoException::SystemInfoException(const std::string &what_arg)
-  : std::runtime_error(what_arg)
-{
 }
 
-} // prbt_hardware_support
+#endif // MODBUS_MSG_RUN_PERMITTED_WRAPPER_EXCEPTION_H
