@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2018 Pilz GmbH & Co. KG
+Copyright (c) 2019 Pilz GmbH & Co. KG
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -17,10 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <launch>
 
-  <arg name="index_of_first_register_to_read" default="512" />
-
-  <node required="true" ns="prbt" pkg="prbt_hardware_support" type="modbus_adapter_sto_node" name="modbus_adapter_sto_node" output="screen">
-    <param name="index_of_first_register_to_read" value="$(arg index_of_first_register_to_read)"/>
-  </node>
+<test test-name="unittest_system_info"
+    pkg="prbt_support" type="unittest_system_info">
+</test>
 
 </launch>
