@@ -1,8 +1,0 @@
-ros-melodic-pilz-status-indicator-rqt (0.5.14-1stretch) stretch; urgency=high
-
-  * Adds basic view for operation_mode, status, speed
-  * Contributors: Pilz GmbH and Co. KG
-
- -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 10 Mar 2020 23:00:00 -0000
-
-
