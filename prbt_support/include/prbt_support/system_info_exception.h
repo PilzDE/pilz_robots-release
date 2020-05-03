@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Pilz GmbH & Co. KG
+ * Copyright (c) 2019 Pilz GmbH & Co. KG
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,22 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MODBUS_API_DEFINITIONS_H
-#define MODBUS_API_DEFINITIONS_H
+#ifndef PRBT_SUPPORT_SYSTEM_INFO_EXCEPTION_H
+#define PRBT_SUPPORT_SYSTEM_INFO_EXCEPTION_H
 
-#include <string>
+#include <stdexcept>
 
-namespace prbt_hardware_support
+namespace prbt_support
 {
 
-namespace modbus_api
+/**
+ * @brief Exception thrown by the SystemInfo class in case of an error.
+ */
+class SystemInfoException : public std::runtime_error
 {
-  namespace v2
-  {
-    static constexpr uint16_t MODBUS_RUN_PERMITTED_CLEAR_VALUE  {1};
-    static constexpr uint16_t MODBUS_RUN_PERMITTED_ACTIVE_VALUE {0};
-  }
-}
+public:
+  SystemInfoException(const std::string &what_arg);
+};
+
 
 }
-#endif // MODBUS_API_DEFINITIONS_H
+
+#endif // PRBT_SUPPORT_SYSTEM_INFO_EXCEPTION_H
