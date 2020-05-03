@@ -31,14 +31,14 @@
 #include <pilz_utils/wait_for_message.h>
 #include <pilz_utils/wait_for_service.h>
 #include <pilz_testutils/async_test.h>
-#include <prbt_hardware_support/system_info.h>
-#include <prbt_hardware_support/system_info_exception.h>
+#include <prbt_support/system_info.h>
+#include <prbt_support/system_info_exception.h>
 
 namespace system_info_tests
 {
 
 using canopen_chain_node::GetObject;
-using namespace prbt_hardware_support;
+using namespace prbt_support;
 using namespace testing;
 
 static const std::string GET_OBJECT_TOPIC_NAME{"get_object"};
@@ -53,8 +53,8 @@ static constexpr unsigned int JOINT_STATES_TOPIC_QUEUE_SIZE{1};
 class SystemInfoTests : public testing::Test, public testing::AsyncTest
 {
 public:
-  virtual void SetUp() override;
-  virtual void TearDown() override;
+  void SetUp() override;
+  void TearDown() override;
 
   void publishJointState();
 

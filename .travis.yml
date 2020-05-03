@@ -1,8 +1,10 @@
-# Travis CI instructions
-
-sudo: required
-dist: trusty
 language: generic
+dist: trusty
+os: linux
+
+cache:
+  directories:
+    - $HOME/.ccache
 
 notifications:
   email:
@@ -14,7 +16,8 @@ notifications:
       - i.martini@pilz.de
 env:
   global:
-    - ROS_DISTRO="kinetic"
+    - CCACHE_DIR=$HOME/.ccache
+    - ROS_DISTRO="melodic"
     - CATKIN_LINT=true
     - CMAKE_ARGS="-DCATKIN_ENABLE_CLANG_TIDY=true"
     - ADDITIONAL_DEBS="clang-tidy libclang-dev"

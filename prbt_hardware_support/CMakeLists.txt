@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   tf2_geometry_msgs
   urdf
   dynamic_reconfigure
+  pilz_msgs
 )
 
 add_definitions(-Wall)
@@ -41,8 +42,6 @@ add_service_files(
   FILES
   BrakeTest.srv
   GetOperationMode.srv
-  GetSpeedOverride.srv
-  IsBrakeTestRequired.srv
   SendBrakeTestResult.srv
   SetSpeedLimit.srv
   WriteModbusRegister.srv
@@ -95,14 +94,14 @@ include_directories(SYSTEM ${catkin_INCLUDE_DIRS}) #Must be declared SYSTEM to a
 include_directories(${pilz_utils_INCLUDE_DIRS})
 
 
-# MODBUS_ADAPTER_STO_NODE
-add_executable(modbus_adapter_sto_node
-  src/modbus_adapter_sto_node.cpp
-  src/modbus_adapter_sto.cpp
-  src/modbus_msg_sto_wrapper.cpp
+# MODBUS_ADAPTER_RUN_PERMITTED_NODE
+add_executable(modbus_adapter_run_permitted_node
+  src/modbus_adapter_run_permitted_node.cpp
+  src/modbus_adapter_run_permitted.cpp
+  src/modbus_msg_run_permitted_wrapper.cpp
 )
-add_dependencies(modbus_adapter_sto_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
-target_link_libraries(modbus_adapter_sto_node ${catkin_LIBRARIES})
+add_dependencies(modbus_adapter_run_permitted_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
+target_link_libraries(modbus_adapter_run_permitted_node ${catkin_LIBRARIES})
 
 # STOP1_EXECUTOR_NODE
 add_executable(stop1_executor_node
@@ -152,15 +151,6 @@ add_executable(canopen_braketest_adapter_node
 add_dependencies(canopen_braketest_adapter_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
 target_link_libraries(canopen_braketest_adapter_node ${catkin_LIBRARIES})
 
-# SYSTEM_INFO_NODE
-add_executable(system_info_node
-  src/system_info_node.cpp
-  src/system_info.cpp
-  src/system_info_exception.cpp
-)
-add_dependencies(system_info_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
-target_link_libraries(system_info_node ${catkin_LIBRARIES})
-
 add_executable(fake_speed_override_node
   src/fake_speed_override_node.cpp
 )
@@ -208,16 +198,16 @@ install(DIRECTORY include/${PROJECT_NAME}/
   PATTERN ".svn" EXCLUDE)
 
 install(TARGETS
-  modbus_adapter_sto_node
-  pilz_modbus_client_node
-  stop1_executor_node
-  canopen_braketest_adapter_node
-  modbus_adapter_brake_test_node
   brake_test_executor_node
-  modbus_adapter_operation_mode_node
-  system_info_node
-  speed_observer_node
+  canopen_braketest_adapter_node
   fake_speed_override_node
+  modbus_adapter_brake_test_node
+  modbus_adapter_operation_mode_node
+  modbus_adapter_run_permitted_node
+  operation_mode_setup_executor_node
+  pilz_modbus_client_node
+  speed_observer_node
+  stop1_executor_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -299,7 +289,7 @@ if(CATKIN_ENABLE_TESTING)
   target_link_libraries(unittest_modbus_adapter_brake_test
     ${catkin_LIBRARIES} ${pilz_testutils_LIBRARIES}
   )
-  add_dependencies(unittest_modbus_adapter_brake_test ${${PROJECT_NAME}_EXPORTED_TARGETS})
+  add_dependencies(unittest_modbus_adapter_brake_test ${catkin_EXPORTED_TARGETS})
   #----------------------------------
 
   # --- ModbusAdapterOperationMode unit test ---
@@ -344,6 +334,7 @@ if(CATKIN_ENABLE_TESTING)
   )
   target_link_libraries(unittest_brake_test_executor ${catkin_LIBRARIES})
   add_dependencies(unittest_brake_test_executor ${${PROJECT_NAME}_EXPORTED_TARGETS})
+  add_dependencies(unittest_brake_test_executor ${catkin_EXPORTED_TARGETS})
   #----------------------------------
 
   # --- Stop1Executor unit test ---
@@ -357,14 +348,14 @@ if(CATKIN_ENABLE_TESTING)
   #----------------------------------
 
   #--- StoModbusAdapter intrgration test ---
-  catkin_add_gmock(unittest_modbus_adapter_sto
-    test/unittests/unittest_modbus_adapter_sto.cpp
-    src/modbus_adapter_sto.cpp
-    src/modbus_msg_sto_wrapper.cpp
+  catkin_add_gmock(unittest_modbus_adapter_run_permitted
+    test/unittests/unittest_modbus_adapter_run_permitted.cpp
+    src/modbus_adapter_run_permitted.cpp
+    src/modbus_msg_run_permitted_wrapper.cpp
     src/modbus_msg_in_builder.cpp
   )
-  target_link_libraries(unittest_modbus_adapter_sto ${catkin_LIBRARIES})
-  add_dependencies(unittest_modbus_adapter_sto ${${PROJECT_NAME}_EXPORTED_TARGETS})
+  target_link_libraries(unittest_modbus_adapter_run_permitted ${catkin_LIBRARIES})
+  add_dependencies(unittest_modbus_adapter_run_permitted ${${PROJECT_NAME}_EXPORTED_TARGETS})
   #----------------------------------
 
   # --- Stop integration test ---
@@ -380,7 +371,7 @@ if(CATKIN_ENABLE_TESTING)
   )
   add_dependencies(integrationtest_stop1
     pilz_modbus_client_node
-    modbus_adapter_sto_node
+    modbus_adapter_run_permitted_node
     stop1_executor_node
     ${${PROJECT_NAME}_EXPORTED_TARGETS}
   )
@@ -491,18 +482,6 @@ if(CATKIN_ENABLE_TESTING)
   )
   #----------------------------------------
 
-  #--- SystemInfo unit test ---
-  add_rostest_gmock(unittest_system_info
-      test/unittests/unittest_system_info.test
-      test/unittests/unittest_system_info.cpp
-      src/system_info.cpp
-      src/system_info_exception.cpp
-  )
-  target_link_libraries(unittest_system_info
-    ${catkin_LIBRARIES} ${pilz_testutils_LIBRARIES}
-  )
-  #----------------------------------------
-
   # --- FilterPipeline unit test ---
   add_rostest_gtest(unittest_filter_pipeline
     test/unittests/unittest_filter_pipeline.test
@@ -558,9 +537,6 @@ if(CATKIN_ENABLE_TESTING)
                           "*/BrakeTest.h"
                           "*/BrakeTestRequest.h"
                           "*/BrakeTestResponse.h"
-                          "*/IsBrakeTestRequired.h"
-                          "*/IsBrakeTestRequiredRequest.h"
-                          "*/IsBrakeTestRequiredResponse.h"
                           "*/ModbusRegisterBlock.h"
                           "*/WriteModbusRegister.h"
                           "*/WriteModbusRegisterRequest.h"
@@ -568,9 +544,6 @@ if(CATKIN_ENABLE_TESTING)
                           "*/GetOperationMode.h"
                           "*/GetOperationModeRequest.h"
                           "*/GetOperationModeResponse.h"
-                          "*/GetSpeedOverride.h"
-                          "*/GetSpeedOverrideRequest.h"
-                          "*/GetSpeedOverrideResponse.h"
                           "*/OperationModes.h"
                           "*/SendBrakeTestResult.h"
                           "*/SendBrakeTestResultRequest.h"

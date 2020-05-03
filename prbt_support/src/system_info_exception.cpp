@@ -15,28 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <ros/ros.h>
-#include <prbt_hardware_support/system_info.h>
+#include <prbt_support/system_info_exception.h>
 
-using namespace prbt_hardware_support;
-
-/**
- * @brief Logs important system information.
- */
-// LCOV_EXCL_START
-int main(int argc, char **argv)
+namespace prbt_support
 {
-  ros::init(argc, argv, "system_info");
-  ros::NodeHandle nh{"~"};
 
-  prbt_hardware_support::SystemInfo system_info(nh);
-  FirmwareCont versions {system_info.getFirmwareVersions()};
-  for (const auto& currElem : versions)
-  {
-    ROS_INFO("Firmware version [%s]: %s",
-             currElem.first.c_str(),
-             currElem.second.c_str());
-  }
-  return EXIT_SUCCESS;
+SystemInfoException::SystemInfoException(const std::string &what_arg)
+  : std::runtime_error(what_arg)
+{
 }
-// LCOV_EXCL_STOP
+
+} // prbt_support

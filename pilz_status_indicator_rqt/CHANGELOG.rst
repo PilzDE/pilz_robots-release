@@ -2,7 +2,10 @@
 Changelog for package pilz_status_indicator_rqt
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.4.12 (2020-03-24)
+0.5.15 (2020-05-03)
+-------------------
+
+0.5.14 (2020-03-11)
 -------------------
 * Adds basic view for operation_mode, status, speed
 * Contributors: Pilz GmbH and Co. KG

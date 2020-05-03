@@ -81,7 +81,7 @@ The launch file allows to set optional parameters
        it inside your package folder, set the path and file name here.
 * `gripper` (default: None) <br>
     See [Running the prbt with a gripper](#running-the-prbt-with-a-gripper)
-* `sto` (default: pnoz)<br>
+* `safety_hw` (default: pss4000)<br>
     Connect to the safety controller that handles the safe-torque-off signal.
 	Only relevant for `sim:=False` to issue a Safe stop 1.
 	See [prbt_hardware_support package](prbt_hardware_support/README.md).
@@ -89,7 +89,7 @@ The launch file allows to set optional parameters
 ### Running the simulation
 1. Run `roslaunch prbt_moveit_config moveit_planning_execution.launch sim:=true pipeline:=ompl`
 2. Use the moveit Motion Planning rviz plugin to plan and execute
-   (see e.g. [ROS-I training exercise 3.4](https://industrial-training-master.readthedocs.io/en/kinetic/_source/session3/Motion-Planning-RVIZ.html))
+   (see e.g. [ROS-I training exercise 3.4](https://industrial-training-master.readthedocs.io/en/melodic/_source/session3/Motion-Planning-RVIZ.html))
 
 ### Running on the real robot
 1. Activate can interface: `sudo ip link set can0 up type can bitrate 1000000` (after every reboot or reconnect of the CAN hardware).

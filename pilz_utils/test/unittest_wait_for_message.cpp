@@ -37,7 +37,7 @@ TEST(WaitForMessageTests, testAsyncCall)
   using namespace pilz_utils;
   std::string topic_name{"/test_topic"};
 
-  auto wait_future = std::async(std::launch::async, [topic_name](){ waitForMessage<std_msgs::Empty>(topic_name); return true; });
+  auto wait_future = std::async([topic_name](){ waitForMessage<std_msgs::Empty>(topic_name); return true; });
 
   EXPECT_EQ(std::future_status::timeout, wait_future.wait_for(std::chrono::seconds(WAITING_TIME_S)));
 

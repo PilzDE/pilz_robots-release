@@ -34,8 +34,10 @@
 
 #include <modbus/modbus.h>
 
+#include <pilz_msgs/IsBrakeTestRequired.h>
+#include <pilz_msgs/IsBrakeTestRequiredResult.h>
+
 #include <prbt_hardware_support/ModbusMsgInStamped.h>
-#include <prbt_hardware_support/IsBrakeTestRequired.h>
 #include <prbt_hardware_support/pilz_modbus_server_mock.h>
 #include <prbt_hardware_support/pilz_modbus_client.h>
 #include <prbt_hardware_support/register_container.h>
@@ -86,17 +88,17 @@ protected:
 
 ::testing::AssertionResult expectBrakeTestRequiredServiceCallResult
 (ros::ServiceClient& brake_test_required_client,
- IsBrakeTestRequiredResponse::_result_type expectation,
+ pilz_msgs::IsBrakeTestRequiredResult::_value_type expectation,
  uint16_t retries = DEFAULT_RETRIES)
 {
-  prbt_hardware_support::IsBrakeTestRequired srv;
+  pilz_msgs::IsBrakeTestRequired srv;
   for (int i = 0; i<= retries; i++) {
     auto res = brake_test_required_client.call(srv);
     if(!res)
     {
       return ::testing::AssertionFailure() << "Could not call service";
     }
-    if(srv.response.result == expectation){
+    if(srv.response.result.value == expectation){
       return ::testing::AssertionSuccess() << "It took " << i+1 << " tries for the service call.";
     }
     sleep(1); // This then may take {retries*1}seconds.
@@ -141,7 +143,7 @@ TEST_F(BrakeTestRequiredIntegrationTest, testBrakeTestAnnouncement)
 
   ModbusApiSpec api_spec {nh_};
 
-  unsigned int modbus_register_size {api_spec.getMaxRegisterDefinition() + 1U};
+  unsigned int const modbus_register_size {api_spec.getMaxRegisterDefinition() + 1U};
 
   /**********
    * Step 1 *
@@ -150,7 +152,6 @@ TEST_F(BrakeTestRequiredIntegrationTest, testBrakeTestAnnouncement)
 
   std::thread modbus_server_thread( &initalizeAndRun<prbt_hardware_support::PilzModbusServerMock>,
                                     std::ref(modbus_server), ip.c_str(), static_cast<unsigned int>(port) );
-  prbt_hardware_support::IsBrakeTestRequired srv;
 
   waitForNode("/pilz_modbus_client_node");
   waitForNode("/modbus_adapter_brake_test_node");
@@ -159,30 +160,30 @@ TEST_F(BrakeTestRequiredIntegrationTest, testBrakeTestAnnouncement)
    * Step 2 *
    **********/
   ASSERT_TRUE(api_spec.hasRegisterDefinition(modbus_api_spec::VERSION));
-  unsigned int version_register = api_spec.getRegisterDefinition(modbus_api_spec::VERSION);
+  unsigned int const version_register = api_spec.getRegisterDefinition(modbus_api_spec::VERSION);
 
   ASSERT_TRUE(api_spec.hasRegisterDefinition(modbus_api_spec::BRAKETEST_REQUEST));
-  unsigned int braketest_register = api_spec.getRegisterDefinition(modbus_api_spec::BRAKETEST_REQUEST);
+  unsigned int const braketest_register = api_spec.getRegisterDefinition(modbus_api_spec::BRAKETEST_REQUEST);
 
   modbus_server.setHoldingRegister({{braketest_register, 1}, {version_register, MODBUS_API_VERSION_VALUE}});
 
   ros::ServiceClient is_brake_test_required_client =
-      nh_.serviceClient<prbt_hardware_support::IsBrakeTestRequired>(SERVICE_BRAKETEST_REQUIRED);
+      nh_.serviceClient<pilz_msgs::IsBrakeTestRequired>(SERVICE_BRAKETEST_REQUIRED);
   ASSERT_TRUE(is_brake_test_required_client.waitForExistence(ros::Duration(10)));
 
   EXPECT_TRUE(expectBrakeTestRequiredServiceCallResult(
-                is_brake_test_required_client, IsBrakeTestRequiredResponse::REQUIRED));
+                is_brake_test_required_client, pilz_msgs::IsBrakeTestRequiredResult::REQUIRED));
 
   /**********
    * Step 3 *
    **********/
-  ASSERT_TRUE(api_spec.hasRegisterDefinition(modbus_api_spec::STO));
-  unsigned int sto_register = api_spec.getRegisterDefinition(modbus_api_spec::STO);
+  ASSERT_TRUE(api_spec.hasRegisterDefinition(modbus_api_spec::RUN_PERMITTED));
+  unsigned int const run_permitted_register = api_spec.getRegisterDefinition(modbus_api_spec::RUN_PERMITTED);
 
-  modbus_server.setHoldingRegister({{sto_register, 1}});
+  modbus_server.setHoldingRegister({{run_permitted_register, 1}});
 
   EXPECT_TRUE(expectBrakeTestRequiredServiceCallResult(
-                is_brake_test_required_client, IsBrakeTestRequiredResponse::REQUIRED));
+                is_brake_test_required_client, pilz_msgs::IsBrakeTestRequiredResult::REQUIRED));
 
   /**********
    * Step 4 *
@@ -190,7 +191,7 @@ TEST_F(BrakeTestRequiredIntegrationTest, testBrakeTestAnnouncement)
   modbus_server.setHoldingRegister({{braketest_register, 0}});
 
   EXPECT_TRUE(expectBrakeTestRequiredServiceCallResult(
-                is_brake_test_required_client, IsBrakeTestRequiredResponse::NOT_REQUIRED));
+                is_brake_test_required_client, pilz_msgs::IsBrakeTestRequiredResult::NOT_REQUIRED));
 
   /**********
    * Step 5 *

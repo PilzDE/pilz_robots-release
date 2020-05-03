@@ -15,6 +15,7 @@
  */
 
 #include <algorithm>
+#include <chrono>
 
 #include <ros/ros.h>
 
@@ -23,17 +24,17 @@
 namespace testing
 {
 
-void AsyncTest::barricade(std::string clear_event)
+bool AsyncTest::barricade(const std::string& clear_event, const int timeout_ms)
 {
-  barricade({clear_event});
+  return barricade({clear_event}, timeout_ms);
 }
 
-void AsyncTest::barricade(std::initializer_list<std::string> clear_events)
+bool AsyncTest::barricade(std::initializer_list<std::string> clear_events, const int timeout_ms)
 {
   std::unique_lock<std::mutex> lk(m_);
 
   std::stringstream events_stringstream;
-  for (auto event : clear_events)
+  for (const auto& event : clear_events)
   {
     events_stringstream << event << ", ";
   }
@@ -43,13 +44,27 @@ void AsyncTest::barricade(std::initializer_list<std::string> clear_events)
                [this](std::string event){ return this->waitlist_.count(event) == 0; });
   waitlist_.clear();
 
+  auto end_time_point = std::chrono::system_clock::now() + std::chrono::milliseconds(timeout_ms);
+
   while(!clear_events_.empty())
   {
-    cv_.wait(lk);
+    if (timeout_ms < 0)
+    {
+      cv_.wait(lk);
+    }
+    else
+    {
+      std::cv_status status = cv_.wait_for(lk, end_time_point - std::chrono::system_clock::now());
+      if (status == std::cv_status::timeout)
+      {
+        return clear_events_.empty();
+      }
+    }
   }
+  return true;
 }
 
-void AsyncTest::triggerClearEvent(std::string event)
+void AsyncTest::triggerClearEvent(const std::string& event)
 {
   std::lock_guard<std::mutex> lk(m_);
 

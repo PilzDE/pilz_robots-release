@@ -22,6 +22,8 @@
 
 #include <ros/time.h>
 
+#include <pilz_msgs/GetSpeedOverride.h>
+
 #include <prbt_hardware_support/OperationModes.h>
 #include <prbt_hardware_support/operation_mode_setup_executor.h>
 #include <prbt_hardware_support/operation_mode_setup_executor_node_service_calls.h>
@@ -286,8 +288,8 @@ TEST_P(OperationModeSetupExecutorTestSpeedOverrideNice, testSpeedOverride)
 
   executor_->updateOperationMode(op_mode);
 
-  auto req = GetSpeedOverrideRequest();
-  auto res = GetSpeedOverrideResponse();
+  auto req = pilz_msgs::GetSpeedOverrideRequest();
+  auto res = pilz_msgs::GetSpeedOverrideResponse();
   executor_->getSpeedOverride(req, res);
   EXPECT_EQ(res.speed_override, GetParam().second);
 }
@@ -299,7 +301,7 @@ INSTANTIATE_TEST_CASE_P(
     std::pair<OperationModes::_value_type, double>(OperationModes::UNKNOWN, 0.0),
     std::pair<OperationModes::_value_type, double>(OperationModes::T1,      0.1),
     std::pair<OperationModes::_value_type, double>(OperationModes::AUTO,    1.0)
-  )
+  ),
 );
 
 }  // namespace operation_mode_setup_executor_tests

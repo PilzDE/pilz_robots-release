@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PRBT_HARDWARE_SUPPORT_SYSTEM_INFO_EXCEPTION_H
-#define PRBT_HARDWARE_SUPPORT_SYSTEM_INFO_EXCEPTION_H
+#ifndef PRBT_SUPPORT_SYSTEM_INFO_EXCEPTION_H
+#define PRBT_SUPPORT_SYSTEM_INFO_EXCEPTION_H
 
 #include <stdexcept>
 
-namespace prbt_hardware_support
+namespace prbt_support
 {
 
 /**
@@ -35,4 +35,4 @@ public:
 
 }
 
-#endif // PRBT_HARDWARE_SUPPORT_SYSTEM_INFO_EXCEPTION_H
+#endif // PRBT_SUPPORT_SYSTEM_INFO_EXCEPTION_H

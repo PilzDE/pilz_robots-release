@@ -69,7 +69,7 @@ static void progressInTime(const ros::Duration& period)
 class PilzJointTrajectoryControllerTest : public testing::Test
 {
 protected:
-  void SetUp();
+  void SetUp() override;
 
   void startController();
 
