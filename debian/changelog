@@ -1,0 +1,47 @@
+ros-melodic-pilz-utils (0.5.17-1stretch) stretch; urgency=high
+
+  * Remove extended ROS sleep function
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Sun, 21 Jun 2020 22:00:00 -0000
+
+ros-melodic-pilz-utils (0.5.16-1stretch) stretch; urgency=high
+
+  * Update and apply clang-format (#387)
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Thu, 14 May 2020 22:00:00 -0000
+
+ros-melodic-pilz-utils (0.5.15-1stretch) stretch; urgency=high
+
+  * Fix coverage generation for pilz_utils
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Sat, 02 May 2020 22:00:00 -0000
+
+ros-melodic-pilz-utils (0.5.14-1stretch) stretch; urgency=high
+
+  * Rename waitForTopic() -> waitForMessage()
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 10 Mar 2020 23:00:00 -0000
+
+ros-melodic-pilz-utils (0.5.13-1stretch) stretch; urgency=high
+
+
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 03 Dec 2019 23:00:00 -0000
+
+ros-melodic-pilz-utils (0.5.12-1stretch) stretch; urgency=high
+
+
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Wed, 27 Nov 2019 23:00:00 -0000
+
+ros-melodic-pilz-utils (0.5.11-1stretch) stretch; urgency=high
+
+  * Provide utility functions waitForService, waitForTopic and getParam
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Thu, 21 Nov 2019 23:00:00 -0000
+
+
