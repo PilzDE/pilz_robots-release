@@ -1,0 +1,12 @@
+Source: ros-melodic-pilz-utils
+Section: misc
+Priority: optional
+Maintainer: Alexander Gutenkunst <a.gutenkunst@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), clang-tidy, ros-melodic-catkin, ros-melodic-cmake-modules, ros-melodic-code-coverage, ros-melodic-roscpp, ros-melodic-rostest, ros-melodic-rosunit
+Homepage: https://wiki.ros.org/pilz_utils
+Standards-Version: 3.9.2
+
+Package: ros-melodic-pilz-utils
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+Description: The pilz_utils package contains utilities used by Pilz packages
