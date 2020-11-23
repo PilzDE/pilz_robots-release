@@ -1,0 +1,12 @@
+Source: ros-melodic-prbt-hardware-support
+Section: misc
+Priority: optional
+Maintainer: Alexander Gutenkunst <a.gutenkunst@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), libmodbus-dev, ros-melodic-canopen-chain-node, ros-melodic-catkin, ros-melodic-cmake-modules, ros-melodic-code-coverage, ros-melodic-dynamic-reconfigure, ros-melodic-message-filters, ros-melodic-message-generation, ros-melodic-pilz-msgs, ros-melodic-pilz-testutils, ros-melodic-pilz-utils, ros-melodic-roscpp, ros-melodic-rostest, ros-melodic-rosunit, ros-melodic-sensor-msgs, ros-melodic-std-msgs, ros-melodic-std-srvs, ros-melodic-tf2, ros-melodic-tf2-geometry-msgs, ros-melodic-tf2-ros, ros-melodic-urdf
+Homepage: https://wiki.ros.org/prbt_hardware_support
+Standards-Version: 3.9.2
+
+Package: ros-melodic-prbt-hardware-support
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-message-runtime, ros-melodic-pilz-msgs, ros-melodic-roscpp, ros-melodic-rosservice, ros-melodic-sensor-msgs, ros-melodic-std-msgs, ros-melodic-std-srvs
+Description: Control hardware functions of the PRBT manipulator like RUN_PERMITTED for Stop1 functionality.
