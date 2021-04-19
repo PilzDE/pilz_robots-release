@@ -1,0 +1,12 @@
+Source: ros-noetic-prbt-gazebo
+Section: misc
+Priority: optional
+Maintainer: Alexander Gutenkunst <a.gutenkunst@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-actionlib, ros-noetic-catkin, ros-noetic-roscpp, ros-noetic-rostest, ros-noetic-trajectory-msgs
+Homepage: https://wiki.ros.org/prbt_gazebo
+Standards-Version: 3.9.2
+
+Package: ros-noetic-prbt-gazebo
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-gazebo-ros, ros-noetic-gazebo-ros-control, ros-noetic-prbt-moveit-config, ros-noetic-prbt-support, ros-noetic-roslaunch, ros-noetic-xacro
+Description: Launch prbt robot in an empty Gazebo world.
