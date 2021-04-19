@@ -1,0 +1,12 @@
+Source: ros-noetic-pilz-robots
+Section: misc
+Priority: optional
+Maintainer: Alexander Gutenkunst <a.gutenkunst@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-catkin
+Homepage: http://ros.org/wiki/pilz_robots
+Standards-Version: 3.9.2
+
+Package: ros-noetic-pilz-robots
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-pilz-control, ros-noetic-pilz-status-indicator-rqt, ros-noetic-prbt-hardware-support, ros-noetic-prbt-ikfast-manipulator-plugin, ros-noetic-prbt-moveit-config, ros-noetic-prbt-support
+Description: The metapackage
