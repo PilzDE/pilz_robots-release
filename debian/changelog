@@ -1,0 +1,63 @@
+ros-noetic-pilz-status-indicator-rqt (0.6.0-1buster) buster; urgency=high
+
+  * Ports the driver to noetic. Includes moveing the trajectory planner to moveit
+    * changes the references of the pilz_command_planner to the pilz_industrial_command_planner in moveit
+    * fixes compatibility with ubuntu 20, noetic and colcon
+    * changes CI to noetic and ubuntu 20
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Sun, 18 Apr 2021 22:00:00 -0000
+
+ros-noetic-pilz-status-indicator-rqt (0.5.21-1buster) buster; urgency=high
+
+  * Update references to OperationMode msg and GetOperationMode srv (moved to pilz_msgs)
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Sun, 22 Nov 2020 23:00:00 -0000
+
+ros-noetic-pilz-status-indicator-rqt (0.5.20-1buster) buster; urgency=high
+
+  * Update package.xml for python 3
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Mon, 16 Nov 2020 23:00:00 -0000
+
+ros-noetic-pilz-status-indicator-rqt (0.5.19-1buster) buster; urgency=high
+
+  * Hide currently unsupported ui elements
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Sun, 06 Sep 2020 22:00:00 -0000
+
+ros-noetic-pilz-status-indicator-rqt (0.5.18-1buster) buster; urgency=high
+
+
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Wed, 01 Jul 2020 22:00:00 -0000
+
+ros-noetic-pilz-status-indicator-rqt (0.5.17-1buster) buster; urgency=high
+
+
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Sun, 21 Jun 2020 22:00:00 -0000
+
+ros-noetic-pilz-status-indicator-rqt (0.5.16-1buster) buster; urgency=high
+
+
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Thu, 14 May 2020 22:00:00 -0000
+
+ros-noetic-pilz-status-indicator-rqt (0.5.15-1buster) buster; urgency=high
+
+
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Sat, 02 May 2020 22:00:00 -0000
+
+ros-noetic-pilz-status-indicator-rqt (0.5.14-1buster) buster; urgency=high
+
+  * Adds basic view for operation_mode, status, speed
+  * Contributors: Pilz GmbH and Co. KG
+
+ -- Alexander Gutenkunst <a.gutenkunst@pilz.de>  Tue, 10 Mar 2020 23:00:00 -0000
+
+
