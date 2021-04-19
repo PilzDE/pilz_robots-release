@@ -1,0 +1,13 @@
+Source: ros-noetic-pilz-control
+Section: misc
+Priority: optional
+Maintainer: Alexander Gutenkunst <a.gutenkunst@pilz.de>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-catkin, ros-noetic-cmake-modules, ros-noetic-code-coverage, ros-noetic-controller-interface, ros-noetic-controller-manager, ros-noetic-geometry-msgs, ros-noetic-joint-trajectory-controller, ros-noetic-moveit-core, ros-noetic-moveit-ros-planning, ros-noetic-pilz-msgs, ros-noetic-pilz-testutils, ros-noetic-pilz-utils, ros-noetic-roscpp, ros-noetic-roslint, ros-noetic-rostest, ros-noetic-rosunit, ros-noetic-std-srvs, ros-noetic-tf2, ros-noetic-tf2-geometry-msgs
+Homepage: http://ros.org/wiki/pilz_control
+Standards-Version: 3.9.2
+
+Package: ros-noetic-pilz-control
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-controller-interface, ros-noetic-controller-manager, ros-noetic-joint-trajectory-controller, ros-noetic-moveit-core, ros-noetic-moveit-ros-planning, ros-noetic-pilz-msgs, ros-noetic-roscpp, ros-noetic-std-srvs
+Description: This package provides a specialized joint_trajectory_controller that can be moved into holding state via service call.
+ No further trajectories will be accepted/followed in this state.
