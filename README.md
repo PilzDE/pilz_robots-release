@@ -111,14 +111,11 @@ iface can0 can static
 Instead of OMPL use the industrial motion planners of Pilz for executing industrial robot commands like PTP, LIN, etc. For this install the
 package [pilz_industrial_motion_planner](http://wiki.ros.org/pilz_industrial_motion_planner):
 ```
-sudo apt install ros-kinetic-pilz-trajectory-generation
-or
-sudo apt install ros-melodic-pilz-trajectory-generation
-or
-sudo apt install ros-noetic-pilz-industrial-motion-planner
+sudo apt install ros-$ROS_DISTRO-pilz-industrial-motion-planner
 ```
+and replace the pipeline in the above command by `pipeline:=pilz_industrial_motion_planner`.
 
-then replace the pipeline in the above command by `pipeline:=pilz_industrial_motion_planner`.
+(If you are still running ROS Kinetic please follow the instructions [here](https://github.com/PilzDE/pilz_robots/blob/kinetic-devel/README.md)).
 
 ### Adjust expert parameters
 If you've created an application package with your own launch file as described in the
