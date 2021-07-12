@@ -2,6 +2,11 @@
 Changelog for package prbt_moveit_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.22 (2021-07-12)
+-------------------
+* Updating references to pilz_industrial_motion_planner
+* Contributors: Pilz GmbH and Co. KG
+
 0.5.21 (2020-11-23)
 -------------------
 * Move capabilities arguments into planning pipeline
