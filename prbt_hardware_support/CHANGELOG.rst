@@ -2,6 +2,11 @@
 Changelog for package prbt_hardware_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.22 (2021-07-12)
+-------------------
+* Updating references to pilz_industrial_motion_planner
+* Contributors: Pilz GmbH and Co. KG
+
 0.5.21 (2020-11-23)
 -------------------
 * Move OperationMode msg and GetOperationMode srv to pilz_msgs
