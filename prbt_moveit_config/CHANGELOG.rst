@@ -2,6 +2,11 @@
 Changelog for package prbt_moveit_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.23 (2021-07-21)
+-------------------
+* Allow usage of deprecated pilz_command_planner
+* Contributors: Pilz GmbH and Co. KG
+
 0.5.22 (2021-07-12)
 -------------------
 * Updating references to pilz_industrial_motion_planner
