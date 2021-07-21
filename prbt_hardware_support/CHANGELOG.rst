@@ -2,6 +2,9 @@
 Changelog for package prbt_hardware_support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.5.23 (2021-07-21)
+-------------------
+
 0.5.22 (2021-07-12)
 -------------------
 * Updating references to pilz_industrial_motion_planner
